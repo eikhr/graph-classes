@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { graphClasses } from "@/data/graph-classes";
 import { findProof } from "@/data/inclusions";
 import { GraphExplainer } from "@/components/graph-explainer";
+import { GraphIcon } from "@/components/graph-icon";
 import { DefinitionBox } from "@/components/definition-box";
 import styles from "./page.module.css";
 
@@ -53,7 +54,12 @@ export default async function ClassPage({ params }: Props) {
               {superclassData.map((sc) => {
                 const proof = findProof(graphClass.id, sc.id);
                 return (
-                  <li key={sc.id}>
+                  <li key={sc.id} className={styles["relatedItem"]}>
+                    <GraphIcon
+                      graph={sc.examples[0]!.graph}
+                      width={60}
+                      height={38}
+                    />
                     {proof ? (
                       <a href={`/inclusions/${graphClass.id}/${sc.id}`}>
                         {sc.name}{" "}
@@ -78,7 +84,12 @@ export default async function ClassPage({ params }: Props) {
               {subclassData.map((sc) => {
                 const proof = findProof(sc.id, graphClass.id);
                 return (
-                  <li key={sc.id}>
+                  <li key={sc.id} className={styles["relatedItem"]}>
+                    <GraphIcon
+                      graph={sc.examples[0]!.graph}
+                      width={60}
+                      height={38}
+                    />
                     {proof ? (
                       <a href={`/inclusions/${sc.id}/${graphClass.id}`}>
                         {sc.name}{" "}

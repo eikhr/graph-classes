@@ -9,6 +9,10 @@ vi.mock("@/components/graph-canvas", () => ({
   ),
 }));
 
+vi.mock("@/components/graph-icon", () => ({
+  GraphIcon: () => <div data-testid="graph-icon" />,
+}));
+
 describe("Class detail page", () => {
   it("renders the class name as heading", async () => {
     const page = await ClassPage({ params: Promise.resolve({ id: "path" }) });

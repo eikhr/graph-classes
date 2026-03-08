@@ -50,6 +50,12 @@
   font-size: 0.95rem;
 }
 
+.relatedItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .proofHint {
   font-size: 0.8rem;
   color: var(--muted);
