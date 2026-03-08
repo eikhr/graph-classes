@@ -17,7 +17,7 @@
     "test:ct": "playwright test --config playwright-ct.config.ts",
     "test:visual": "playwright test e2e/visual.spec.ts",
     "test:visual:update": "playwright test e2e/visual.spec.ts --update-snapshots",
-    "test:all": "pnpm test:unit && pnpm test:ct && pnpm test:e2e"
+    "test:all": "pnpm typecheck && pnpm test:unit && pnpm test:ct && pnpm test:e2e"
   },
   "dependencies": {
     "next": "16.1.6",

@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-import type { DrawCommand } from "./draw-commands";
 import { graphToDrawCommands } from "./draw-commands";
 import type { Graph } from "@/types/graph";
 
