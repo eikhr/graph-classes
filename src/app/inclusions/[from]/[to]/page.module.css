@@ -9,7 +9,23 @@
   color: var(--accent);
 }
 
-.description {
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.className {
+  color: var(--accent);
+}
+
+.arrow {
+  color: var(--muted);
+  font-size: 1.5rem;
+}
+
+.summary {
   color: var(--muted);
   font-size: 1.05rem;
   margin-bottom: 2rem;
@@ -20,37 +36,21 @@
   margin-bottom: 2.5rem;
 }
 
-.sidebar {
+.classLinks {
   display: flex;
   gap: 2rem;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 
-.sidebarSection {
+.classLink {
   flex: 1;
 }
 
-.sidebarSection h2 {
-  font-size: 0.8rem;
+.classLinkLabel {
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--muted);
-  margin-bottom: 0.5rem;
-}
-
-.sidebarSection ul {
-  list-style: none;
-}
-
-.sidebarSection li {
-  padding: 0.25rem 0;
-}
-
-.sidebarSection a {
-  font-size: 0.95rem;
-}
-
-.proofHint {
-  font-size: 0.8rem;
-  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }

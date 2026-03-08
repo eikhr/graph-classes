@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { graphClasses } from "@/data/graph-classes";
+import { findProof } from "@/data/inclusions";
 import { GraphExplainer } from "@/components/graph-explainer";
 import { DefinitionBox } from "@/components/definition-box";
 import styles from "./page.module.css";
@@ -49,11 +50,23 @@ export default async function ClassPage({ params }: Props) {
           <div className={styles["sidebarSection"]}>
             <h2>Superclasses</h2>
             <ul>
-              {superclassData.map((sc) => (
-                <li key={sc.id}>
-                  <a href={`/classes/${sc.id}`}>{sc.name}</a>
-                </li>
-              ))}
+              {superclassData.map((sc) => {
+                const proof = findProof(graphClass.id, sc.id);
+                return (
+                  <li key={sc.id}>
+                    {proof ? (
+                      <a href={`/inclusions/${graphClass.id}/${sc.id}`}>
+                        {sc.name}{" "}
+                        <span className={styles["proofHint"]}>
+                          — see why
+                        </span>
+                      </a>
+                    ) : (
+                      <a href={`/classes/${sc.id}`}>{sc.name}</a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}
@@ -62,11 +75,23 @@ export default async function ClassPage({ params }: Props) {
           <div className={styles["sidebarSection"]}>
             <h2>Subclasses</h2>
             <ul>
-              {subclassData.map((sc) => (
-                <li key={sc.id}>
-                  <a href={`/classes/${sc.id}`}>{sc.name}</a>
-                </li>
-              ))}
+              {subclassData.map((sc) => {
+                const proof = findProof(sc.id, graphClass.id);
+                return (
+                  <li key={sc.id}>
+                    {proof ? (
+                      <a href={`/inclusions/${sc.id}/${graphClass.id}`}>
+                        {sc.name}{" "}
+                        <span className={styles["proofHint"]}>
+                          — see why
+                        </span>
+                      </a>
+                    ) : (
+                      <a href={`/classes/${sc.id}`}>{sc.name}</a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         )}

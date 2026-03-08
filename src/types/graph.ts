@@ -39,6 +39,13 @@ export type Definition = {
   forbiddenSubgraphs?: string | undefined;
 };
 
+export type InclusionProof = {
+  from: string;
+  to: string;
+  summary: string;
+  example: GraphExample;
+};
+
 export type GraphClass = {
   id: string;
   name: string;

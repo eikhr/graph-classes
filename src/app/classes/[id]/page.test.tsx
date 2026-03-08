@@ -40,6 +40,7 @@ describe("Class detail page", () => {
     // Path's superclass is tree
     const treeLink = screen.getByRole("link", { name: /tree/i });
     expect(treeLink).toBeInTheDocument();
-    expect(treeLink.getAttribute("href")).toBe("/classes/tree");
+    // Links to inclusion proof page when proof exists
+    expect(treeLink.getAttribute("href")).toBe("/inclusions/path/tree");
   });
 });
