@@ -3,8 +3,8 @@
 import { useState, useMemo } from "react";
 import { GraphCanvas } from "./graph-canvas";
 import { graphToDrawCommands } from "@/rendering/draw-commands";
-import type { GraphExample } from "@/types/graph";
-import type { Graph } from "@/types/graph";
+import type { GraphExample, Graph } from "@/types/graph";
+import styles from "./graph-explainer.module.css";
 
 type GraphExplainerProps = {
   example: GraphExample;
@@ -15,7 +15,6 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
   const step = example.steps[stepIndex]!;
   const totalSteps = example.steps.length;
 
-  // Build the current graph state by applying addedNodes/addedEdges from steps 0..stepIndex
   const currentGraph: Graph = useMemo(() => {
     const nodes = [...example.graph.nodes];
     const edges = [...example.graph.edges];
@@ -39,25 +38,31 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
   );
 
   return (
-    <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
-      <GraphCanvas commands={commands} width={400} height={300} />
-      <div>
-        <p>{step.text}</p>
-        <p>
-          Step {stepIndex + 1} of {totalSteps}
-        </p>
-        <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
+    <div className={styles["explainer"]}>
+      <div className={styles["canvasWrap"]}>
+        <GraphCanvas commands={commands} width={480} height={300} />
+      </div>
+      <div className={styles["controls"]}>
+        <p className={styles["stepText"]}>{step.text}</p>
+        <div className={styles["stepNav"]}>
           <button
+            className={styles["navButton"]}
             onClick={() => setStepIndex((i) => i - 1)}
             disabled={stepIndex === 0}
+            aria-label="Previous"
           >
-            Previous
+            &larr;
           </button>
+          <span className={styles["stepIndicator"]}>
+            Step {stepIndex + 1} of {totalSteps}
+          </span>
           <button
+            className={styles["navButton"]}
             onClick={() => setStepIndex((i) => i + 1)}
             disabled={stepIndex === totalSteps - 1}
+            aria-label="Next"
           >
-            Next
+            &rarr;
           </button>
         </div>
       </div>

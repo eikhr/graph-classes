@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { graphClasses } from "@/data/graph-classes";
 import { GraphExplainer } from "@/components/graph-explainer";
+import styles from "./page.module.css";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -22,42 +23,64 @@ export default async function ClassPage({ params }: Props) {
     graphClass.superclasses.includes(gc.id),
   );
 
+  const subclassData = graphClasses.filter((gc) =>
+    gc.superclasses.includes(graphClass.id),
+  );
+
   return (
     <main>
+      <a href="/" className={styles["backLink"]}>
+        &larr; All graph classes
+      </a>
       <h1>{graphClass.name}</h1>
-      <p>{graphClass.description}</p>
+      <p className={styles["description"]}>{graphClass.description}</p>
 
       {graphClass.examples.map((example, i) => (
-        <section key={i}>
+        <section key={i} className={styles["exampleSection"]}>
           <GraphExplainer example={example} />
         </section>
       ))}
 
-      {superclassData.length > 0 && (
-        <section>
-          <h2>Superclasses</h2>
+      <div className={styles["sidebar"]}>
+        {superclassData.length > 0 && (
+          <div className={styles["sidebarSection"]}>
+            <h2>Superclasses</h2>
+            <ul>
+              {superclassData.map((sc) => (
+                <li key={sc.id}>
+                  <a href={`/classes/${sc.id}`}>{sc.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {subclassData.length > 0 && (
+          <div className={styles["sidebarSection"]}>
+            <h2>Subclasses</h2>
+            <ul>
+              {subclassData.map((sc) => (
+                <li key={sc.id}>
+                  <a href={`/classes/${sc.id}`}>{sc.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className={styles["sidebarSection"]}>
+          <h2>References</h2>
           <ul>
-            {superclassData.map((sc) => (
-              <li key={sc.id}>
-                <a href={`/classes/${sc.id}`}>{sc.name}</a>
+            {graphClass.references.map((ref, i) => (
+              <li key={i}>
+                <a href={ref.url} target="_blank" rel="noopener noreferrer">
+                  {ref.title}
+                </a>
               </li>
             ))}
           </ul>
-        </section>
-      )}
-
-      <section>
-        <h2>References</h2>
-        <ul>
-          {graphClass.references.map((ref, i) => (
-            <li key={i}>
-              <a href={ref.url} target="_blank" rel="noopener noreferrer">
-                {ref.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+        </div>
+      </div>
     </main>
   );
 }

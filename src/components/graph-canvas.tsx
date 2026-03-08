@@ -12,7 +12,6 @@ type GraphCanvasProps = {
 const HIGHLIGHT_COLOR = "#3b82f6";
 const DEFAULT_COLOR = "#6b7280";
 const DIM_COLOR = "#d1d5db";
-const BG_COLOR = "#ffffff";
 
 export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -29,8 +28,11 @@ export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
     canvas.height = height * dpr;
     ctx.scale(dpr, dpr);
 
-    // Clear
-    ctx.fillStyle = BG_COLOR;
+    // Clear — read CSS variable for theme-aware background
+    const canvasBg =
+      getComputedStyle(canvas).getPropertyValue("--canvas-bg").trim() ||
+      "#fafafa";
+    ctx.fillStyle = canvasBg;
     ctx.fillRect(0, 0, width, height);
 
     const hasAnyHighlight = commands.some((c) => c.highlighted);

@@ -1,0 +1,71 @@
+.explainer {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.canvasWrap {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--canvas-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.canvasWrap canvas {
+  border-radius: 8px;
+}
+
+.controls {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stepText {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.stepNav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.stepIndicator {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 5.5em;
+  text-align: center;
+}
+
+.navButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--background);
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.navButton:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--surface);
+}
+
+.navButton:disabled {
+  opacity: 0.3;
+  cursor: default;
+}

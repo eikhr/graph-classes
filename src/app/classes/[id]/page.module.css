@@ -1,0 +1,51 @@
+.backLink {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.backLink:hover {
+  color: var(--accent);
+}
+
+.description {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  max-width: 640px;
+}
+
+.exampleSection {
+  margin-bottom: 2.5rem;
+}
+
+.sidebar {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.sidebarSection {
+  flex: 1;
+}
+
+.sidebarSection h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.sidebarSection ul {
+  list-style: none;
+}
+
+.sidebarSection li {
+  padding: 0.25rem 0;
+}
+
+.sidebarSection a {
+  font-size: 0.95rem;
+}
