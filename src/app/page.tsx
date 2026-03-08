@@ -6,6 +6,9 @@ export default function Home() {
   return (
     <main className={styles["main"]}>
       <h1 className={styles["title"]}>Graph Classes</h1>
+      <a href="/hierarchy" className={styles["hierarchyLink"]}>
+        View class hierarchy &rarr;
+      </a>
       <div className={styles["grid"]}>
         {graphClasses.map((gc) => (
           <a key={gc.id} href={`/classes/${gc.id}`} className={styles["card"]}>

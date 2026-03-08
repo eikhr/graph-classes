@@ -6,7 +6,18 @@
 
 .title {
   font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.hierarchyLink {
+  display: inline-block;
   margin-bottom: 1.5rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.hierarchyLink:hover {
+  color: var(--accent);
 }
 
 .grid {
