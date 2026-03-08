@@ -1,4 +1,34 @@
-import type { GraphClass } from "@/types/graph";
+import type { GraphClass, IntervalBarAnnotation } from "@/types/graph";
+
+const INTERVAL_COLORS: Record<string, string> = {
+  "1": "#3b82f6", // blue
+  "2": "#ef4444", // red
+  "3": "#22c55e", // green
+  "4": "#f59e0b", // amber
+  "5": "#8b5cf6", // violet
+};
+
+// Unit intervals (all length 2) — no interval contains another
+const allIntervals: IntervalBarAnnotation["intervals"] = [
+  { id: "1", start: 0, end: 2, label: "v1", color: INTERVAL_COLORS["1"]! },
+  { id: "2", start: 1, end: 3, label: "v2", color: INTERVAL_COLORS["2"]! },
+  { id: "3", start: 2, end: 4, label: "v3", color: INTERVAL_COLORS["3"]! },
+  { id: "4", start: 3, end: 5, label: "v4", color: INTERVAL_COLORS["4"]! },
+  { id: "5", start: 4, end: 6, label: "v5", color: INTERVAL_COLORS["5"]! },
+];
+
+function intervalAnnotation(highlightIds?: string[]): IntervalBarAnnotation {
+  const base: IntervalBarAnnotation = {
+    type: "interval-bars",
+    intervals: allIntervals,
+    axisMin: -0.5,
+    axisMax: 6.5,
+  };
+  if (highlightIds) {
+    base.highlightIds = highlightIds;
+  }
+  return base;
+}
 
 export const properIntervalClass: GraphClass = {
   id: "proper-interval",
@@ -28,11 +58,11 @@ export const properIntervalClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "1", x: 60, y: 180, label: "v1" },
-          { id: "2", x: 150, y: 100, label: "v2" },
-          { id: "3", x: 240, y: 80, label: "v3" },
-          { id: "4", x: 330, y: 100, label: "v4" },
-          { id: "5", x: 420, y: 180, label: "v5" },
+          { id: "1", x: 30, y: 150, label: "v1" },
+          { id: "2", x: 80, y: 100, label: "v2" },
+          { id: "3", x: 140, y: 85, label: "v3" },
+          { id: "4", x: 200, y: 100, label: "v4" },
+          { id: "5", x: 250, y: 150, label: "v5" },
         ],
         edges: [
           { source: "1", target: "2" },
@@ -46,27 +76,34 @@ export const properIntervalClass: GraphClass = {
       },
       steps: [
         {
-          text: "This graph has 5 vertices arranged along a gentle arc, representing overlapping unit intervals on the real line.",
+          text: "Each vertex corresponds to a unit interval (equal length) on the number line. Two vertices are {adjacent} when their intervals overlap.",
+          nodeColors: INTERVAL_COLORS,
+          annotation: intervalAnnotation(),
         },
         {
-          text: "Each vertex is {adjacent} to its immediate and next-nearest neighbours: $v_1$–$v_2$–$v_3$–$v_4$–$v_5$ form a path.",
+          text: "All intervals have the same length — no interval contains another. This is what makes it a proper interval graph.",
+          nodeColors: INTERVAL_COLORS,
+          annotation: intervalAnnotation(),
+        },
+        {
+          text: "$v_1$ and $v_2$ overlap, and $v_1$ and $v_3$ just barely overlap. But $v_1$ and $v_4$ do not — hence no edge between them.",
+          highlightNodes: ["1", "2", "3"],
           highlightEdges: [
             ["1", "2"],
-            ["2", "3"],
-            ["3", "4"],
-            ["4", "5"],
-          ],
-        },
-        {
-          text: "Additional edges $(v_1, v_3)$, $(v_2, v_4)$, and $(v_3, v_5)$ reflect the overlapping unit intervals.",
-          highlightEdges: [
             ["1", "3"],
-            ["2", "4"],
-            ["3", "5"],
           ],
+          nodeColors: INTERVAL_COLORS,
+          annotation: intervalAnnotation(["1", "2", "3"]),
         },
         {
-          text: "No vertex has three non-adjacent neighbours, so there is no induced claw ($K_{1,3}$). Combined with being an interval graph, this makes it a proper interval graph.",
+          text: "Contrast with a general interval graph: there, intervals can have different lengths, so one might contain another. Here, uniform length prevents that.",
+          nodeColors: INTERVAL_COLORS,
+          annotation: intervalAnnotation(),
+        },
+        {
+          text: "No vertex has three mutually non-{adjacent} neighbours, so there is no induced claw ($K_{1,3}$). Proper interval graphs are equivalently the claw-free interval graphs.",
+          nodeColors: INTERVAL_COLORS,
+          annotation: intervalAnnotation(),
         },
       ],
     },
