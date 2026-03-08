@@ -1,4 +1,5 @@
 import type { Definition } from "@/types/graph";
+import { MathText } from "./math-text";
 import styles from "./definition-box.module.css";
 
 type DefinitionBoxProps = {
@@ -9,7 +10,9 @@ export function DefinitionBox({ definition }: DefinitionBoxProps) {
   return (
     <div className={styles["box"]}>
       <div className={styles["label"]}>Definition</div>
-      <p className={styles["formal"]}>{definition.formal}</p>
+      <p className={styles["formal"]}>
+        <MathText>{definition.formal}</MathText>
+      </p>
 
       {definition.equivalentCharacterizations &&
         definition.equivalentCharacterizations.length > 0 && (
@@ -19,7 +22,9 @@ export function DefinitionBox({ definition }: DefinitionBoxProps) {
             </div>
             <ul className={styles["list"]}>
               {definition.equivalentCharacterizations.map((char, i) => (
-                <li key={i}>{char}</li>
+                <li key={i}>
+                  <MathText>{char}</MathText>
+                </li>
               ))}
             </ul>
           </div>
@@ -28,7 +33,9 @@ export function DefinitionBox({ definition }: DefinitionBoxProps) {
       {definition.forbiddenSubgraphs && (
         <div className={styles["section"]}>
           <div className={styles["sectionLabel"]}>Forbidden subgraphs</div>
-          <p className={styles["forbidden"]}>{definition.forbiddenSubgraphs}</p>
+          <p className={styles["forbidden"]}>
+            <MathText>{definition.forbiddenSubgraphs}</MathText>
+          </p>
         </div>
       )}
     </div>

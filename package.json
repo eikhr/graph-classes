@@ -21,9 +21,11 @@
     "screenshot": "node --experimental-strip-types scripts/screenshot.ts"
   },
   "dependencies": {
+    "katex": "^0.16.37",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-katex": "^3.1.0"
   },
   "devDependencies": {
     "@playwright/experimental-ct-react": "^1.58.2",
@@ -31,9 +33,11 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
+    "@types/katex": "^0.16.8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-katex": "^3.0.4",
     "@typescript/native-preview": "7.0.0-dev.20260307.1",
     "@vitejs/plugin-react": "^5.1.4",
     "jsdom": "^28.1.0",

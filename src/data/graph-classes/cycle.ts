@@ -5,10 +5,10 @@ export const cycleClass: GraphClass = {
   name: "Cycle graph",
   definition: {
     formal:
-      "A cycle graph Cn is a graph on n ≥ 3 vertices v1, v2, …, vn with edges {vi, vi+1} for i = 1, …, n−1 and the edge {vn, v1}.",
+      "A cycle graph $C_n$ is a graph on $n \\geq 3$ vertices $v_1, v_2, \\ldots, v_n$ with edges $\\{v_i, v_{i+1}\\}$ for $i = 1, \\ldots, n-1$ and the edge $\\{v_n, v_1\\}$.",
     equivalentCharacterizations: [
-      "A connected 2-regular graph",
-      "A connected graph in which every vertex has exactly degree 2",
+      "A connected $2$-regular graph",
+      "A connected graph in which every vertex has exactly degree $2$",
     ],
   },
   description:

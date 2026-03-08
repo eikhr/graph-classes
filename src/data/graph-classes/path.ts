@@ -5,9 +5,9 @@ export const pathClass: GraphClass = {
   name: "Path graph",
   definition: {
     formal:
-      "A path graph Pn is a graph on n vertices v1, v2, …, vn with edges {vi, vi+1} for i = 1, …, n−1.",
+      "A path graph $P_n$ is a graph on $n$ vertices $v_1, v_2, \\ldots, v_n$ with edges $\\{v_i, v_{i+1}\\}$ for $i = 1, \\ldots, n-1$.",
     equivalentCharacterizations: [
-      "A connected graph in which every vertex has degree at most 2 and there are no cycles",
+      "A connected graph in which every vertex has degree at most $2$ and there are no cycles",
       "A tree with at most two leaves",
     ],
   },
