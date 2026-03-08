@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import type { DrawCommand } from "@/rendering/draw-commands";
 
 type GraphCanvasProps = {
@@ -9,12 +9,120 @@ type GraphCanvasProps = {
   height: number;
 };
 
-const HIGHLIGHT_COLOR = "#3b82f6";
-const DEFAULT_COLOR = "#6b7280";
-const DIM_COLOR = "#d1d5db";
+const ANIMATION_DURATION = 300;
+
+// Color constants as RGB tuples for interpolation
+const HIGHLIGHT_RGB = [59, 130, 246] as const; // #3b82f6
+const DEFAULT_RGB = [107, 114, 128] as const; // #6b7280
+const DIM_RGB = [209, 213, 219] as const; // #d1d5db
+
+type RGB = readonly [number, number, number];
+
+function lerpRgb(a: RGB, b: RGB, t: number): string {
+  const r = Math.round(a[0] + (b[0] - a[0]) * t);
+  const g = Math.round(a[1] + (b[1] - a[1]) * t);
+  const bl = Math.round(a[2] + (b[2] - a[2]) * t);
+  return `rgb(${r},${g},${bl})`;
+}
+
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+function getTargetColor(cmd: DrawCommand, hasAnyHighlight: boolean): RGB {
+  if (!hasAnyHighlight) return DEFAULT_RGB;
+  return cmd.highlighted ? HIGHLIGHT_RGB : DIM_RGB;
+}
+
+function getTargetLineWidth(cmd: DrawCommand): number {
+  return cmd.type === "line" && cmd.highlighted ? 3 : 2;
+}
+
+// Easing: ease-out cubic
+function ease(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+// Build a key to match commands across frames
+function commandKey(cmd: DrawCommand): string {
+  switch (cmd.type) {
+    case "circle":
+      return `c:${cmd.x},${cmd.y}`;
+    case "line":
+      return `l:${cmd.x1},${cmd.y1}-${cmd.x2},${cmd.y2}`;
+    case "label":
+      return `t:${cmd.x},${cmd.y}`;
+  }
+}
+
+type AnimationState = {
+  color: RGB;
+  lineWidth: number;
+};
 
 export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animStateRef = useRef<Map<string, AnimationState>>(new Map());
+  const animFrameRef = useRef<number>(0);
+
+  const draw = useCallback(
+    (ctx: CanvasRenderingContext2D, canvasBg: string, t: number) => {
+      ctx.save();
+      const dpr = window.devicePixelRatio || 1;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      ctx.fillStyle = canvasBg;
+      ctx.fillRect(0, 0, width, height);
+
+      const hasAnyHighlight = commands.some((c) => c.highlighted);
+      const animState = animStateRef.current;
+
+      for (const cmd of commands) {
+        const key = commandKey(cmd);
+        const targetColor = getTargetColor(cmd, hasAnyHighlight);
+        const targetLineWidth = getTargetLineWidth(cmd);
+
+        let prev = animState.get(key);
+        if (!prev) {
+          prev = { color: targetColor, lineWidth: targetLineWidth };
+          animState.set(key, prev);
+        }
+
+        const color = lerpRgb(prev.color, targetColor, t);
+        const lineWidth = lerp(prev.lineWidth, targetLineWidth, t);
+
+        switch (cmd.type) {
+          case "line": {
+            ctx.beginPath();
+            ctx.moveTo(cmd.x1, cmd.y1);
+            ctx.lineTo(cmd.x2, cmd.y2);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth;
+            ctx.stroke();
+            break;
+          }
+          case "circle": {
+            ctx.beginPath();
+            ctx.arc(cmd.x, cmd.y, cmd.radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            break;
+          }
+          case "label": {
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 12px sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(cmd.text, cmd.x, cmd.y);
+            break;
+          }
+        }
+      }
+
+      ctx.restore();
+    },
+    [commands, width, height],
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,52 +134,41 @@ export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
     const dpr = window.devicePixelRatio || 1;
     canvas.width = width * dpr;
     canvas.height = height * dpr;
-    ctx.scale(dpr, dpr);
 
-    // Clear — read CSS variable for theme-aware background
     const canvasBg =
       getComputedStyle(canvas).getPropertyValue("--canvas-bg").trim() ||
       "#fafafa";
-    ctx.fillStyle = canvasBg;
-    ctx.fillRect(0, 0, width, height);
 
-    const hasAnyHighlight = commands.some((c) => c.highlighted);
+    const startTime = performance.now();
 
-    for (const cmd of commands) {
-      const color = hasAnyHighlight
-        ? cmd.highlighted
-          ? HIGHLIGHT_COLOR
-          : DIM_COLOR
-        : DEFAULT_COLOR;
+    function animate(now: number) {
+      const elapsed = now - startTime;
+      const rawT = Math.min(elapsed / ANIMATION_DURATION, 1);
+      const t = ease(rawT);
 
-      switch (cmd.type) {
-        case "line": {
-          ctx.beginPath();
-          ctx.moveTo(cmd.x1, cmd.y1);
-          ctx.lineTo(cmd.x2, cmd.y2);
-          ctx.strokeStyle = color;
-          ctx.lineWidth = cmd.highlighted ? 3 : 2;
-          ctx.stroke();
-          break;
-        }
-        case "circle": {
-          ctx.beginPath();
-          ctx.arc(cmd.x, cmd.y, cmd.radius, 0, Math.PI * 2);
-          ctx.fillStyle = color;
-          ctx.fill();
-          break;
-        }
-        case "label": {
-          ctx.fillStyle = "#ffffff";
-          ctx.font = "bold 12px sans-serif";
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillText(cmd.text, cmd.x, cmd.y);
-          break;
+      draw(ctx!, canvasBg, t);
+
+      if (rawT < 1) {
+        animFrameRef.current = requestAnimationFrame(animate);
+      } else {
+        // Animation complete — snapshot final state
+        const hasAnyHighlight = commands.some((c) => c.highlighted);
+        const animState = animStateRef.current;
+        for (const cmd of commands) {
+          const key = commandKey(cmd);
+          animState.set(key, {
+            color: getTargetColor(cmd, hasAnyHighlight),
+            lineWidth: getTargetLineWidth(cmd),
+          });
         }
       }
     }
-  }, [commands, width, height]);
+
+    cancelAnimationFrame(animFrameRef.current);
+    animFrameRef.current = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animFrameRef.current);
+  }, [commands, width, height, draw]);
 
   return (
     <canvas
