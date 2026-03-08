@@ -15,13 +15,32 @@ export type Graph = {
   edges: GraphEdge[];
 };
 
+export type IntervalBarAnnotation = {
+  type: "interval-bars";
+  intervals: {
+    id: string;
+    start: number;
+    end: number;
+    label: string;
+    color: string;
+  }[];
+  highlightIds?: string[];
+  axisMin?: number;
+  axisMax?: number;
+};
+
+export type Annotation = IntervalBarAnnotation;
+
 export type ExplanationStep = {
   text: string;
   highlightNodes?: string[];
   highlightEdges?: [string, string][];
+  highlightEdges2?: [string, string][];
+  nodeColors?: Record<string, string>;
   addedNodes?: GraphNode[];
   addedEdges?: GraphEdge[];
   movedNodes?: { id: string; x: number; y: number }[];
+  annotation?: Annotation;
 };
 
 export type GraphExample = {

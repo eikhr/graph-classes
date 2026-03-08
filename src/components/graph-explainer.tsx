@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { GraphCanvas } from "./graph-canvas";
+import { AnnotationPanel } from "./annotation-panel";
 import { graphToDrawCommands } from "@/rendering/draw-commands";
 import type { GraphExample, Graph } from "@/types/graph";
 import styles from "./graph-explainer.module.css";
@@ -12,8 +13,21 @@ type GraphExplainerProps = {
 
 export function GraphExplainer({ example }: GraphExplainerProps) {
   const [stepIndex, setStepIndex] = useState(0);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const step = example.steps[stepIndex]!;
   const totalSteps = example.steps.length;
+
+  const hasAnnotations = example.steps.some((s) => s.annotation !== undefined);
+
+  // Clear selection when changing steps
+  const goToStep = useCallback((next: number) => {
+    setStepIndex(next);
+    setSelectedId(null);
+  }, []);
+
+  const handleSelect = useCallback((id: string) => {
+    setSelectedId((prev) => (prev === id ? null : id));
+  }, []);
 
   const currentGraph: Graph = useMemo(() => {
     const nodes = example.graph.nodes.map((n) => ({ ...n }));
@@ -39,26 +53,70 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
     return { nodes, edges };
   }, [example, stepIndex, step]);
 
+  // When a node is selected interactively, derive highlights from the graph
+  const selectionHighlight = useMemo(() => {
+    if (selectedId === null) return null;
+    const edges = currentGraph.edges;
+    const connectedEdges: [string, string][] = [];
+    const neighborIds = new Set<string>([selectedId]);
+    for (const edge of edges) {
+      if (edge.source === selectedId || edge.target === selectedId) {
+        connectedEdges.push([edge.source, edge.target]);
+        neighborIds.add(edge.source);
+        neighborIds.add(edge.target);
+      }
+    }
+    return {
+      highlightNodes: [...neighborIds],
+      highlightEdges: connectedEdges,
+    };
+  }, [selectedId, currentGraph]);
+
   const commands = useMemo(
     () =>
       graphToDrawCommands(currentGraph, {
-        highlightNodes: step.highlightNodes,
-        highlightEdges: step.highlightEdges,
+        highlightNodes:
+          selectionHighlight?.highlightNodes ?? step.highlightNodes,
+        highlightEdges:
+          selectionHighlight?.highlightEdges ?? step.highlightEdges,
+        highlightEdges2: selectionHighlight ? undefined : step.highlightEdges2,
+        nodeColors: step.nodeColors,
       }),
-    [currentGraph, step],
+    [currentGraph, step, selectionHighlight],
   );
+
+  const canvasWidth = hasAnnotations ? 280 : 480;
+  const canvasHeight = hasAnnotations ? 220 : 300;
 
   return (
     <div className={styles["explainer"]}>
-      <div className={styles["canvasWrap"]}>
-        <GraphCanvas commands={commands} width={480} height={300} />
+      <div
+        className={
+          hasAnnotations ? styles["splitCanvasWrap"] : styles["canvasWrap"]
+        }
+      >
+        <GraphCanvas
+          commands={commands}
+          width={canvasWidth}
+          height={canvasHeight}
+          onNodeClick={hasAnnotations ? handleSelect : undefined}
+        />
+        {step.annotation && (
+          <div className={styles["annotationPane"]}>
+            <AnnotationPanel
+              annotation={step.annotation}
+              selectedId={selectedId}
+              onSelect={handleSelect}
+            />
+          </div>
+        )}
       </div>
       <div className={styles["controls"]}>
         <p className={styles["stepText"]}>{step.text}</p>
         <div className={styles["stepNav"]}>
           <button
             className={styles["navButton"]}
-            onClick={() => setStepIndex((i) => i - 1)}
+            onClick={() => goToStep(stepIndex - 1)}
             disabled={stepIndex === 0}
             aria-label="Previous"
           >
@@ -69,7 +127,7 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
           </span>
           <button
             className={styles["navButton"]}
-            onClick={() => setStepIndex((i) => i + 1)}
+            onClick={() => goToStep(stepIndex + 1)}
             disabled={stepIndex === totalSteps - 1}
             aria-label="Next"
           >

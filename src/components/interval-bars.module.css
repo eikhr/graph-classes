@@ -1,0 +1,109 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 1rem 1.25rem;
+}
+
+.chartArea {
+  position: relative;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 0.2rem 0.35rem;
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.15s;
+}
+
+.row:hover {
+  background: var(--border);
+}
+
+.selected {
+  background: var(--border);
+}
+
+.barLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  width: 1.5rem;
+  text-align: right;
+  color: var(--foreground);
+  transition: opacity 0.3s;
+}
+
+.track {
+  flex: 1;
+  position: relative;
+  height: 1.25rem;
+  background: var(--canvas-bg, #f5f5f5);
+  border-radius: 4px;
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 4px;
+  transition: opacity 0.3s, left 0.3s, width 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.intervalRange {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.rangeOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.2rem;
+  right: 0.35rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rangeLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1.5px dashed var(--accent);
+  opacity: 0.5;
+}
+
+.axis {
+  position: relative;
+  height: 1.25rem;
+  margin-left: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.tick {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  color: var(--muted);
+  top: 0.25rem;
+}
