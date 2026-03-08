@@ -28,10 +28,10 @@ export const chordalClass: GraphClass = {
       graph: {
         nodes: [
           { id: "0", x: 240, y: 50, label: "v₀" },
-          { id: "1", x: 80, y: 230, label: "v₁" },
-          { id: "2", x: 200, y: 230, label: "v₂" },
-          { id: "3", x: 320, y: 230, label: "v₃" },
-          { id: "4", x: 440, y: 230, label: "v₄" },
+          { id: "1", x: 60, y: 240, label: "v₁" },
+          { id: "2", x: 180, y: 240, label: "v₂" },
+          { id: "3", x: 300, y: 240, label: "v₃" },
+          { id: "4", x: 420, y: 240, label: "v₄" },
         ],
         edges: [
           { source: "0", target: "1" },

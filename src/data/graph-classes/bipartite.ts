@@ -25,12 +25,12 @@ export const bipartiteClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "a1", x: 80, y: 80, label: "a1" },
-          { id: "a2", x: 200, y: 80, label: "a2" },
-          { id: "a3", x: 320, y: 80, label: "a3" },
-          { id: "b1", x: 80, y: 220, label: "b1" },
-          { id: "b2", x: 200, y: 220, label: "b2" },
-          { id: "b3", x: 320, y: 220, label: "b3" },
+          { id: "a1", x: 120, y: 80, label: "a1" },
+          { id: "a2", x: 240, y: 80, label: "a2" },
+          { id: "a3", x: 360, y: 80, label: "a3" },
+          { id: "b1", x: 120, y: 220, label: "b1" },
+          { id: "b2", x: 240, y: 220, label: "b2" },
+          { id: "b3", x: 360, y: 220, label: "b3" },
         ],
         edges: [
           { source: "a1", target: "b1" },

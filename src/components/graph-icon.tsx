@@ -9,8 +9,7 @@ type GraphIconProps = {
   height?: number;
 };
 
-const SOURCE_WIDTH = 480;
-const SOURCE_HEIGHT = 300;
+const PADDING = 6;
 const NODE_RADIUS = 5;
 const NODE_COLOR = "#6b7280";
 const EDGE_COLOR = "#d1d5db";
@@ -34,8 +33,25 @@ export function GraphIcon({
     canvas.height = height * dpr;
     ctx.scale(dpr, dpr);
 
-    const sx = width / SOURCE_WIDTH;
-    const sy = height / SOURCE_HEIGHT;
+    // Compute bounding box from node positions
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const node of graph.nodes) {
+      if (node.x < minX) minX = node.x;
+      if (node.y < minY) minY = node.y;
+      if (node.x > maxX) maxX = node.x;
+      if (node.y > maxY) maxY = node.y;
+    }
+
+    const srcW = maxX - minX || 1;
+    const srcH = maxY - minY || 1;
+    const drawW = width - PADDING * 2;
+    const drawH = height - PADDING * 2;
+    const scale = Math.min(drawW / srcW, drawH / srcH);
+    const offsetX = PADDING + (drawW - srcW * scale) / 2;
+    const offsetY = PADDING + (drawH - srcH * scale) / 2;
+
+    function tx(x: number) { return offsetX + (x - minX) * scale; }
+    function ty(y: number) { return offsetY + (y - minY) * scale; }
 
     // Edges
     ctx.strokeStyle = EDGE_COLOR;
@@ -45,8 +61,8 @@ export function GraphIcon({
       const target = graph.nodes.find((n) => n.id === edge.target);
       if (!source || !target) continue;
       ctx.beginPath();
-      ctx.moveTo(source.x * sx, source.y * sy);
-      ctx.lineTo(target.x * sx, target.y * sy);
+      ctx.moveTo(tx(source.x), ty(source.y));
+      ctx.lineTo(tx(target.x), ty(target.y));
       ctx.stroke();
     }
 
@@ -54,7 +70,7 @@ export function GraphIcon({
     ctx.fillStyle = NODE_COLOR;
     for (const node of graph.nodes) {
       ctx.beginPath();
-      ctx.arc(node.x * sx, node.y * sy, NODE_RADIUS, 0, Math.PI * 2);
+      ctx.arc(tx(node.x), ty(node.y), NODE_RADIUS, 0, Math.PI * 2);
       ctx.fill();
     }
   }, [graph, width, height]);

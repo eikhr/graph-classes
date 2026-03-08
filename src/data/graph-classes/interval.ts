@@ -55,11 +55,11 @@ export const intervalClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "a", x: 60, y: 70, label: "a" },
-          { id: "b", x: 140, y: 40, label: "b" },
-          { id: "c", x: 220, y: 70, label: "c" },
-          { id: "d", x: 140, y: 140, label: "d" },
-          { id: "e", x: 260, y: 140, label: "e" },
+          { id: "a", x: 50, y: 70, label: "a" },
+          { id: "b", x: 140, y: 30, label: "b" },
+          { id: "c", x: 230, y: 70, label: "c" },
+          { id: "d", x: 140, y: 150, label: "d" },
+          { id: "e", x: 250, y: 150, label: "e" },
         ],
         edges: [
           { source: "a", target: "b" },

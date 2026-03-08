@@ -24,11 +24,11 @@ export const cycleClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "1", x: 200, y: 40, label: "v1" },
-          { id: "2", x: 353, y: 150, label: "v2" },
-          { id: "3", x: 295, y: 270, label: "v3" },
-          { id: "4", x: 105, y: 270, label: "v4" },
-          { id: "5", x: 47, y: 150, label: "v5" },
+          { id: "1", x: 240, y: 35, label: "v1" },
+          { id: "2", x: 349, y: 114, label: "v2" },
+          { id: "3", x: 308, y: 243, label: "v3" },
+          { id: "4", x: 172, y: 243, label: "v4" },
+          { id: "5", x: 131, y: 114, label: "v5" },
         ],
         edges: [
           { source: "1", target: "2" },

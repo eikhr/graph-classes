@@ -26,11 +26,11 @@ export const outerplanarClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "1", x: 240, y: 40, label: "1" },
-          { id: "2", x: 410, y: 120, label: "2" },
-          { id: "3", x: 380, y: 260, label: "3" },
-          { id: "4", x: 100, y: 260, label: "4" },
-          { id: "5", x: 70, y: 120, label: "5" },
+          { id: "1", x: 240, y: 35, label: "1" },
+          { id: "2", x: 349, y: 114, label: "2" },
+          { id: "3", x: 308, y: 243, label: "3" },
+          { id: "4", x: 172, y: 243, label: "4" },
+          { id: "5", x: 131, y: 114, label: "5" },
         ],
         edges: [
           { source: "1", target: "2" },

@@ -26,12 +26,12 @@ export const treeClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "1", x: 200, y: 40, label: "v1" },
-          { id: "2", x: 110, y: 130, label: "v2" },
-          { id: "3", x: 290, y: 130, label: "v3" },
-          { id: "4", x: 50, y: 230, label: "v4" },
-          { id: "5", x: 170, y: 230, label: "v5" },
-          { id: "6", x: 290, y: 230, label: "v6" },
+          { id: "1", x: 240, y: 40, label: "v1" },
+          { id: "2", x: 140, y: 140, label: "v2" },
+          { id: "3", x: 340, y: 140, label: "v3" },
+          { id: "4", x: 80, y: 240, label: "v4" },
+          { id: "5", x: 200, y: 240, label: "v5" },
+          { id: "6", x: 340, y: 240, label: "v6" },
         ],
         edges: [
           { source: "1", target: "2" },

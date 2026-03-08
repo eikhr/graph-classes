@@ -26,11 +26,11 @@ export const perfectClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "a", x: 120, y: 60, label: "a" },
-          { id: "b", x: 360, y: 60, label: "b" },
-          { id: "c", x: 440, y: 180, label: "c" },
-          { id: "d", x: 240, y: 260, label: "d" },
-          { id: "e", x: 40, y: 180, label: "e" },
+          { id: "a", x: 240, y: 35, label: "a" },
+          { id: "b", x: 349, y: 114, label: "b" },
+          { id: "c", x: 308, y: 243, label: "c" },
+          { id: "d", x: 172, y: 243, label: "d" },
+          { id: "e", x: 131, y: 114, label: "e" },
         ],
         edges: [
           { source: "a", target: "b" },

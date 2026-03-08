@@ -24,10 +24,10 @@ export const pathClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "1", x: 50, y: 150, label: "v1" },
-          { id: "2", x: 150, y: 150, label: "v2" },
-          { id: "3", x: 250, y: 150, label: "v3" },
-          { id: "4", x: 350, y: 150, label: "v4" },
+          { id: "1", x: 40, y: 150, label: "v1" },
+          { id: "2", x: 173, y: 150, label: "v2" },
+          { id: "3", x: 307, y: 150, label: "v3" },
+          { id: "4", x: 440, y: 150, label: "v4" },
         ],
         edges: [
           { source: "1", target: "2" },
