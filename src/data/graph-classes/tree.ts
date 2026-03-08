@@ -15,7 +15,7 @@ export const treeClass: GraphClass = {
   },
   description:
     "A tree is a connected acyclic graph. Equivalently, a tree on n vertices has exactly n−1 edges and there is a unique path between every pair of vertices. Trees are fundamental structures in computer science and combinatorics.",
-  superclasses: ["bipartite"],
+  superclasses: ["bipartite", "chordal", "outerplanar"],
   references: [
     {
       title: "Tree (graph theory) - Wikipedia",

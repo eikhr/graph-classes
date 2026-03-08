@@ -13,7 +13,7 @@ export const cycleClass: GraphClass = {
   },
   description:
     "A cycle graph is a graph consisting of a single cycle: a sequence of vertices where each vertex is connected to the next, and the last vertex connects back to the first. Every vertex in a cycle graph has exactly degree 2. The smallest cycle graph is C3, the triangle.",
-  superclasses: [],
+  superclasses: ["outerplanar"],
   references: [
     {
       title: "Cycle graph - Wikipedia",

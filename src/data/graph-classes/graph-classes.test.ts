@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { graphClasses } from "./index";
 
 describe("graph class data", () => {
-  it("exports all five starter classes", () => {
-    expect(graphClasses).toHaveLength(5);
+  it("exports all ten graph classes", () => {
+    expect(graphClasses).toHaveLength(10);
   });
 
   it("each class has required fields", () => {
@@ -25,13 +25,14 @@ describe("graph class data", () => {
     }
   });
 
-  it("includes path, cycle, tree, bipartite, complete", () => {
+  it("includes all expected graph classes", () => {
     const ids = graphClasses.map((gc) => gc.id);
-    expect(ids).toContain("path");
-    expect(ids).toContain("cycle");
-    expect(ids).toContain("tree");
-    expect(ids).toContain("bipartite");
-    expect(ids).toContain("complete");
+    for (const expected of [
+      "path", "cycle", "tree", "bipartite", "complete",
+      "interval", "chordal", "perfect", "outerplanar", "planar",
+    ]) {
+      expect(ids).toContain(expected);
+    }
   });
 
   it("superclass references point to valid class IDs", () => {
