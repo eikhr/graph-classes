@@ -52,7 +52,17 @@ export function GlossaryTerm({ entry, children }: GlossaryTermProps) {
           className={`${styles["popover"]} ${above ? styles["above"] : styles["below"]}`}
           role="tooltip"
         >
-          <span className={styles["title"]}>{entry.term}</span>
+          <span className={styles["header"]}>
+            <span className={styles["title"]}>{entry.term}</span>
+            <button
+              className={styles["close"]}
+              onClick={close}
+              type="button"
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </span>
           {entry.illustration && (
             <span className={styles["illustration"]}>
               <GraphIcon
