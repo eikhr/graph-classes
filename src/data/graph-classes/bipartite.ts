@@ -14,7 +14,7 @@ export const bipartiteClass: GraphClass = {
   },
   description:
     "A bipartite graph is a graph whose vertices can be divided into two disjoint sets such that every edge connects a vertex in one set to a vertex in the other. Equivalently, a graph is bipartite if and only if it contains no odd-length cycles.",
-  superclasses: ["perfect"],
+  superclasses: ["meyniel"],
   references: [
     {
       title: "Bipartite graph - Wikipedia",

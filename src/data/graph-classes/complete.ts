@@ -15,7 +15,7 @@ export const completeClass: GraphClass = {
   },
   description:
     "A complete graph is a graph in which every pair of distinct vertices is connected by a unique edge. A complete graph on n vertices, denoted Kn, has n(n−1)/2 edges. Complete graphs are the densest possible simple graphs.",
-  superclasses: ["perfect"],
+  superclasses: ["threshold"],
   references: [
     {
       title: "Complete graph - Wikipedia",

@@ -16,7 +16,7 @@ export const chordalClass: GraphClass = {
   },
   description:
     "A chordal graph (also called a triangulated graph) is a graph in which every cycle of four or more vertices has a chord — an edge connecting two non-{adjacent} vertices in the cycle. Chordal graphs generalize {trees} and are always perfect. They have many efficient algorithmic properties.",
-  superclasses: ["perfect"],
+  superclasses: ["meyniel", "even-hole-free"],
   references: [
     {
       title: "Chordal graph - Wikipedia",

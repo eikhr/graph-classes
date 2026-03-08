@@ -142,16 +142,42 @@ export function ClassHierarchy({ classes }: ClassHierarchyProps) {
             width: 2,
           },
         },
+        {
+          selector: ".dimmed",
+          style: {
+            opacity: 0.15,
+          } as cytoscape.Css.Node,
+        },
+        {
+          selector: "node.highlighted",
+          style: {
+            "border-color": accent,
+            "border-width": 2.5,
+          },
+        },
+        {
+          selector: "edge.highlighted",
+          style: {
+            "line-color": accent,
+            "target-arrow-color": accent,
+            width: 2.5,
+            opacity: 1,
+          } as cytoscape.Css.Edge,
+        },
       ],
       layout: {
         name: "dagre",
         rankDir: "BT",
-        nodeSep: 30,
-        rankSep: 60,
-        padding: 30,
+        nodeSep: 50,
+        rankSep: 70,
+        edgeSep: 20,
+        ranker: "network-simplex",
+        padding: 40,
       } as cytoscape.LayoutOptions,
-      userZoomingEnabled: false,
-      userPanningEnabled: false,
+      userZoomingEnabled: true,
+      userPanningEnabled: true,
+      minZoom: 0.3,
+      maxZoom: 2,
       boxSelectionEnabled: false,
       autoungrabify: true,
     });
@@ -167,13 +193,31 @@ export function ClassHierarchy({ classes }: ClassHierarchyProps) {
       router.push(`/inclusions/${source}/${target}`);
     });
 
-    cy.on("mouseover", "node, edge[hasProof = 'true']", () => {
+    cy.on("mouseover", "node", (evt) => {
+      if (containerRef.current) {
+        containerRef.current.style.cursor = "pointer";
+      }
+      const node = evt.target;
+      const connected = node.connectedEdges().connectedNodes();
+      const neighborhood = node.connectedEdges().union(connected).union(node);
+      cy.elements().not(neighborhood).addClass("dimmed");
+      neighborhood.addClass("highlighted");
+    });
+
+    cy.on("mouseout", "node", () => {
+      if (containerRef.current) {
+        containerRef.current.style.cursor = "default";
+      }
+      cy.elements().removeClass("dimmed").removeClass("highlighted");
+    });
+
+    cy.on("mouseover", "edge[hasProof = 'true']", () => {
       if (containerRef.current) {
         containerRef.current.style.cursor = "pointer";
       }
     });
 
-    cy.on("mouseout", "node, edge[hasProof = 'true']", () => {
+    cy.on("mouseout", "edge[hasProof = 'true']", () => {
       if (containerRef.current) {
         containerRef.current.style.cursor = "default";
       }
@@ -189,7 +233,7 @@ export function ClassHierarchy({ classes }: ClassHierarchyProps) {
   return (
     <div
       ref={containerRef}
-      style={{ width: "100%", height: "700px" }}
+      style={{ width: "100%", height: "900px", border: "1px solid var(--border)", borderRadius: "8px" }}
       role="img"
       aria-label="Graph class hierarchy diagram"
     />

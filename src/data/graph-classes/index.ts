@@ -9,6 +9,12 @@ import { chordalClass } from "./chordal";
 import { perfectClass } from "./perfect";
 import { outerplanarClass } from "./outerplanar";
 import { planarClass } from "./planar";
+import { thresholdClass } from "./threshold";
+import { cographClass } from "./cograph";
+import { properIntervalClass } from "./proper-interval";
+import { meynielClass } from "./meyniel";
+import { evenHoleFreeClass } from "./even-hole-free";
+import { cliqueGraphClass } from "./clique";
 
 export const graphClasses: GraphClass[] = [
   pathClass,
@@ -21,4 +27,10 @@ export const graphClasses: GraphClass[] = [
   perfectClass,
   outerplanarClass,
   planarClass,
+  thresholdClass,
+  cographClass,
+  properIntervalClass,
+  meynielClass,
+  evenHoleFreeClass,
+  cliqueGraphClass,
 ];

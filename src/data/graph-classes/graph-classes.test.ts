@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { graphClasses } from "./index";
 
 describe("graph class data", () => {
-  it("exports all ten graph classes", () => {
-    expect(graphClasses).toHaveLength(10);
+  it("exports all graph classes", () => {
+    expect(graphClasses).toHaveLength(16);
   });
 
   it("each class has required fields", () => {
@@ -30,6 +30,8 @@ describe("graph class data", () => {
     for (const expected of [
       "path", "cycle", "tree", "bipartite", "complete",
       "interval", "chordal", "perfect", "outerplanar", "planar",
+      "threshold", "cograph", "proper-interval", "meyniel",
+      "even-hole-free", "clique",
     ]) {
       expect(ids).toContain(expected);
     }
