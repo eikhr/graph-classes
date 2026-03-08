@@ -1,4 +1,5 @@
 import type { GraphClass } from "@/types/graph";
+import { regularPolygon } from "@/data/graph-helpers";
 
 export const planarClass: GraphClass = {
   id: "planar",
@@ -26,11 +27,11 @@ export const planarClass: GraphClass = {
     {
       graph: {
         nodes: [
-          { id: "1", x: 240, y: 35, label: "1" },
-          { id: "2", x: 349, y: 114, label: "2" },
-          { id: "3", x: 308, y: 243, label: "3" },
-          { id: "4", x: 172, y: 243, label: "4" },
-          { id: "5", x: 131, y: 114, label: "5" },
+          ...regularPolygon(5, {
+            cx: 240, cy: 150, r: 115,
+            ids: ["1", "2", "3", "4", "5"],
+            labels: ["1", "2", "3", "4", "5"],
+          }),
           { id: "6", x: 240, y: 150, label: "6" },
         ],
         edges: [

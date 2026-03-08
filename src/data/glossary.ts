@@ -1,4 +1,5 @@
 import type { Graph } from "@/types/graph";
+import { regularPolygon } from "./graph-helpers";
 
 export type GlossaryEntry = {
   term: string;
@@ -58,13 +59,7 @@ export const glossary: GlossaryEntry[] = [
     definition:
       "A closed path in a graph where the first and last vertices are the same, with no repeated edges or vertices (except the start/end).",
     illustration: {
-      nodes: [
-        { id: "a", x: 50, y: 10 },
-        { id: "b", x: 90, y: 60 },
-        { id: "c", x: 70, y: 95 },
-        { id: "d", x: 30, y: 95 },
-        { id: "e", x: 10, y: 60 },
-      ],
+      nodes: regularPolygon(5, { cx: 50, cy: 55, r: 40, ids: ["a", "b", "c", "d", "e"] }),
       edges: [
         { source: "a", target: "b" },
         { source: "b", target: "c" },
