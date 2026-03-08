@@ -9,7 +9,7 @@ type GraphCanvasProps = {
   height: number;
 };
 
-const ANIMATION_DURATION = 300;
+const ANIMATION_DURATION = 500;
 
 // Color constants as RGB tuples for interpolation
 const HIGHLIGHT_RGB = [59, 130, 246] as const; // #3b82f6
@@ -38,6 +38,13 @@ function getTargetLineWidth(cmd: DrawCommand): number {
   return cmd.type === "line" && cmd.highlighted ? 3 : 2;
 }
 
+function getTargetPosition(cmd: DrawCommand): Position {
+  if (cmd.type === "line") {
+    return { x: cmd.x1, y: cmd.y1, x2: cmd.x2, y2: cmd.y2 };
+  }
+  return { x: cmd.x, y: cmd.y };
+}
+
 // Easing: ease-out cubic
 function ease(t: number): number {
   return 1 - Math.pow(1 - t, 3);
@@ -45,19 +52,15 @@ function ease(t: number): number {
 
 // Build a key to match commands across frames
 function commandKey(cmd: DrawCommand): string {
-  switch (cmd.type) {
-    case "circle":
-      return `c:${cmd.x},${cmd.y}`;
-    case "line":
-      return `l:${cmd.x1},${cmd.y1}-${cmd.x2},${cmd.y2}`;
-    case "label":
-      return `t:${cmd.x},${cmd.y}`;
-  }
+  return `${cmd.type}:${cmd.id}`;
 }
+
+type Position = { x: number; y: number; x2?: number; y2?: number };
 
 type AnimationState = {
   color: RGB;
   lineWidth: number;
+  pos: Position;
 };
 
 export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
@@ -81,21 +84,26 @@ export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
         const key = commandKey(cmd);
         const targetColor = getTargetColor(cmd, hasAnyHighlight);
         const targetLineWidth = getTargetLineWidth(cmd);
+        const targetPos = getTargetPosition(cmd);
 
         let prev = animState.get(key);
         if (!prev) {
-          prev = { color: targetColor, lineWidth: targetLineWidth };
+          prev = { color: targetColor, lineWidth: targetLineWidth, pos: targetPos };
           animState.set(key, prev);
         }
 
         const color = lerpRgb(prev.color, targetColor, t);
         const lineWidth = lerp(prev.lineWidth, targetLineWidth, t);
+        const x = lerp(prev.pos.x, targetPos.x, t);
+        const y = lerp(prev.pos.y, targetPos.y, t);
 
         switch (cmd.type) {
           case "line": {
+            const x2 = lerp(prev.pos.x2 ?? targetPos.x2!, targetPos.x2!, t);
+            const y2 = lerp(prev.pos.y2 ?? targetPos.y2!, targetPos.y2!, t);
             ctx.beginPath();
-            ctx.moveTo(cmd.x1, cmd.y1);
-            ctx.lineTo(cmd.x2, cmd.y2);
+            ctx.moveTo(x, y);
+            ctx.lineTo(x2, y2);
             ctx.strokeStyle = color;
             ctx.lineWidth = lineWidth;
             ctx.stroke();
@@ -103,7 +111,7 @@ export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
           }
           case "circle": {
             ctx.beginPath();
-            ctx.arc(cmd.x, cmd.y, cmd.radius, 0, Math.PI * 2);
+            ctx.arc(x, y, cmd.radius, 0, Math.PI * 2);
             ctx.fillStyle = color;
             ctx.fill();
             break;
@@ -113,7 +121,7 @@ export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
             ctx.font = "bold 12px sans-serif";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(cmd.text, cmd.x, cmd.y);
+            ctx.fillText(cmd.text, x, y);
             break;
           }
         }
@@ -159,6 +167,7 @@ export function GraphCanvas({ commands, width, height }: GraphCanvasProps) {
           animState.set(key, {
             color: getTargetColor(cmd, hasAnyHighlight),
             lineWidth: getTargetLineWidth(cmd),
+            pos: getTargetPosition(cmd),
           });
         }
       }

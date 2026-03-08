@@ -21,6 +21,7 @@ export type ExplanationStep = {
   highlightEdges?: [string, string][];
   addedNodes?: GraphNode[];
   addedEdges?: GraphEdge[];
+  movedNodes?: { id: string; x: number; y: number }[];
 };
 
 export type GraphExample = {

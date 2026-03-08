@@ -2,6 +2,7 @@ import type { Graph } from "@/types/graph";
 
 export type CircleCommand = {
   type: "circle";
+  id: string;
   x: number;
   y: number;
   radius: number;
@@ -10,6 +11,7 @@ export type CircleCommand = {
 
 export type LineCommand = {
   type: "line";
+  id: string;
   x1: number;
   y1: number;
   x2: number;
@@ -19,6 +21,7 @@ export type LineCommand = {
 
 export type LabelCommand = {
   type: "label";
+  id: string;
   text: string;
   x: number;
   y: number;
@@ -56,6 +59,7 @@ export function graphToDrawCommands(
 
     commands.push({
       type: "line",
+      id: `${edge.source}-${edge.target}`,
       x1: source.x,
       y1: source.y,
       x2: target.x,
@@ -68,6 +72,7 @@ export function graphToDrawCommands(
   for (const node of graph.nodes) {
     commands.push({
       type: "circle",
+      id: node.id,
       x: node.x,
       y: node.y,
       radius: NODE_RADIUS,
@@ -77,6 +82,7 @@ export function graphToDrawCommands(
     if (node.label !== undefined) {
       commands.push({
         type: "label",
+        id: `label-${node.id}`,
         text: node.label,
         x: node.x,
         y: node.y,

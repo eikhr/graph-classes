@@ -49,7 +49,7 @@ export const treeBipartiteProof: InclusionProof = {
         ],
       },
       {
-        text: "This always works because trees have no cycles. If there were an odd cycle, two adjacent vertices would get the same color — but that's impossible in a tree. Therefore every tree is bipartite.",
+        text: "This always works because trees have no cycles. If there were an odd cycle, two adjacent vertices would get the same color — but that's impossible in a tree.",
         highlightNodes: ["r", "c", "d", "e"],
         highlightEdges: [
           ["r", "a"],
@@ -57,6 +57,25 @@ export const treeBipartiteProof: InclusionProof = {
           ["a", "c"],
           ["a", "d"],
           ["b", "e"],
+        ],
+      },
+      {
+        text: "Rearranging the vertices into two rows shows the bipartite structure: every edge connects a vertex in the top row to one in the bottom row.",
+        highlightNodes: ["r", "c", "d", "e"],
+        highlightEdges: [
+          ["r", "a"],
+          ["r", "b"],
+          ["a", "c"],
+          ["a", "d"],
+          ["b", "e"],
+        ],
+        movedNodes: [
+          { id: "r", x: 80, y: 80 },
+          { id: "c", x: 200, y: 80 },
+          { id: "d", x: 320, y: 80 },
+          { id: "e", x: 440, y: 80 },
+          { id: "a", x: 140, y: 220 },
+          { id: "b", x: 380, y: 220 },
         ],
       },
     ],

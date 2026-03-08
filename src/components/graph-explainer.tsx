@@ -16,17 +16,28 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
   const totalSteps = example.steps.length;
 
   const currentGraph: Graph = useMemo(() => {
-    const nodes = [...example.graph.nodes];
+    const nodes = example.graph.nodes.map((n) => ({ ...n }));
     const edges = [...example.graph.edges];
 
     for (let i = 0; i <= stepIndex; i++) {
       const s = example.steps[i]!;
-      if (s.addedNodes) nodes.push(...s.addedNodes);
+      if (s.addedNodes) nodes.push(...s.addedNodes.map((n) => ({ ...n })));
       if (s.addedEdges) edges.push(...s.addedEdges);
     }
 
+    // Apply position overrides from the current step
+    if (step.movedNodes) {
+      for (const moved of step.movedNodes) {
+        const node = nodes.find((n) => n.id === moved.id);
+        if (node) {
+          node.x = moved.x;
+          node.y = moved.y;
+        }
+      }
+    }
+
     return { nodes, edges };
-  }, [example, stepIndex]);
+  }, [example, stepIndex, step]);
 
   const commands = useMemo(
     () =>

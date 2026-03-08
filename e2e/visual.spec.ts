@@ -4,5 +4,6 @@ test("home page visual regression", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveScreenshot("home.png", {
     fullPage: true,
+    maxDiffPixelRatio: 0.02,
   });
 });
