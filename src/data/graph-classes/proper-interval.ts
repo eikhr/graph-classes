@@ -35,19 +35,21 @@ export const properIntervalClass: GraphClass = {
   name: "Proper interval graph",
   definition: {
     formal:
-      "A proper interval graph is an interval graph with an intersection model in which no interval properly contains another.",
+      "An indifference graph is constructed by assigning a real number to each vertex and connecting two vertices by an edge when their numbers are within one unit of each other.",
     equivalentCharacterizations: [
-      "An interval graph with no induced claw ($K_{1,3}$)",
-      "A unit interval graph — representable by intervals of equal length on the real line",
+      "An intersection graph of unit intervals on the real line (unit interval graph)",
+      "An interval graph in which no interval properly contains another (proper interval graph)",
+      "An interval graph with no induced claw ($K_{1,3}$) — Roberts (1969)",
+      "A graph with no induced claw ($K_{1,3}$), net, sun, or hole ($C_n$, $n \\geq 4$)",
     ],
   },
   description:
-    "A proper interval graph is an interval graph that can be represented by intervals on the real line where no interval contains another. Equivalently, these are the claw-free interval graphs, or unit interval graphs (representable with equal-length intervals).",
+    "Also known as an indifference graph or unit interval graph. Constructed by assigning a real number to each vertex and connecting two vertices when their numbers differ by less than one. Equivalently, the intersection graphs of unit intervals, or of intervals where no interval contains another. Roberts (1969) proved these are exactly the claw-free interval graphs.",
   superclasses: ["interval", "clique"],
   references: [
     {
-      title: "Proper interval graph - Wikipedia",
-      url: "https://en.wikipedia.org/wiki/Proper_interval_graph",
+      title: "Indifference graph - Wikipedia",
+      url: "https://en.wikipedia.org/wiki/Indifference_graph",
     },
     {
       title: "ISGCI: Proper interval graph",
@@ -76,12 +78,12 @@ export const properIntervalClass: GraphClass = {
       },
       steps: [
         {
-          text: "Each vertex corresponds to a unit interval (equal length) on the number line. Two vertices are {adjacent} when their intervals overlap.",
+          text: "Assign each vertex a real number and connect two vertices when their numbers differ by less than one. This is the indifference graph model — also called a proper interval or unit interval graph.",
           nodeColors: INTERVAL_COLORS,
           annotation: intervalAnnotation(),
         },
         {
-          text: "All intervals have the same length — no interval contains another. This is what makes it a proper interval graph.",
+          text: "Equivalently, each vertex corresponds to a unit interval on the number line. Two vertices are {adjacent} exactly when their intervals overlap.",
           nodeColors: INTERVAL_COLORS,
           annotation: intervalAnnotation(),
         },
@@ -96,12 +98,12 @@ export const properIntervalClass: GraphClass = {
           annotation: intervalAnnotation(["1", "2", "3"]),
         },
         {
-          text: "Contrast with a general interval graph: there, intervals can have different lengths, so one might contain another. Here, uniform length prevents that.",
+          text: "Because all intervals have equal length, no interval can contain another — the 'proper' in proper interval graph. In a general interval graph, intervals may have different lengths.",
           nodeColors: INTERVAL_COLORS,
           annotation: intervalAnnotation(),
         },
         {
-          text: "No vertex has three mutually non-{adjacent} neighbours, so there is no induced claw ($K_{1,3}$). Proper interval graphs are equivalently the claw-free interval graphs.",
+          text: "Roberts (1969) proved these are exactly the claw-free interval graphs: no vertex has three mutually non-{adjacent} neighbours, so there is no induced $K_{1,3}$.",
           nodeColors: INTERVAL_COLORS,
           annotation: intervalAnnotation(),
         },
