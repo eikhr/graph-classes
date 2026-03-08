@@ -22,6 +22,10 @@ export const planarClass: GraphClass = {
       title: "Planar graph - Wikipedia",
       url: "https://en.wikipedia.org/wiki/Planar_graph",
     },
+    {
+      title: "Planar - ISGCI",
+      url: "https://www.graphclasses.org/classes/gc_43.html",
+    },
   ],
   examples: [
     {

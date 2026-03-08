@@ -21,6 +21,10 @@ export const completeClass: GraphClass = {
       title: "Complete graph - Wikipedia",
       url: "https://en.wikipedia.org/wiki/Complete_graph",
     },
+    {
+      title: "Complete - ISGCI",
+      url: "https://www.graphclasses.org/classes/gc_1241.html",
+    },
   ],
   examples: [
     {

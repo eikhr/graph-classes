@@ -22,6 +22,10 @@ export const outerplanarClass: GraphClass = {
       title: "Outerplanar graph - Wikipedia",
       url: "https://en.wikipedia.org/wiki/Outerplanar_graph",
     },
+    {
+      title: "Outerplanar - ISGCI",
+      url: "https://www.graphclasses.org/classes/gc_110.html",
+    },
   ],
   examples: [
     {

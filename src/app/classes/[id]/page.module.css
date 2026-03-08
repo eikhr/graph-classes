@@ -1,12 +1,13 @@
-.backLink {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  color: var(--muted);
-  font-size: 0.875rem;
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.backLink:hover {
-  color: var(--accent);
+.header h1 {
+  margin: 0;
 }
 
 .description {

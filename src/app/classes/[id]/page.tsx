@@ -5,6 +5,7 @@ import { GraphExplainer } from "@/components/graph-explainer";
 import { GraphIcon } from "@/components/graph-icon";
 import { DefinitionBox } from "@/components/definition-box";
 import { GlossaryText } from "@/components/glossary-text";
+import { ExternalLinks } from "@/components/external-links";
 import styles from "./page.module.css";
 
 type Props = {
@@ -33,7 +34,10 @@ export default async function ClassPage({ params }: Props) {
 
   return (
     <main>
-      <h1>{graphClass.name}</h1>
+      <div className={styles["header"]}>
+        <h1>{graphClass.name}</h1>
+        <ExternalLinks references={graphClass.references} />
+      </div>
       <p className={styles["description"]}>
         <GlossaryText>{graphClass.description}</GlossaryText>
       </p>
@@ -107,18 +111,6 @@ export default async function ClassPage({ params }: Props) {
           </div>
         )}
 
-        <div className={styles["sidebarSection"]}>
-          <h2>References</h2>
-          <ul>
-            {graphClass.references.map((ref, i) => (
-              <li key={i}>
-                <a href={ref.url} target="_blank" rel="noopener noreferrer">
-                  {ref.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </main>
   );

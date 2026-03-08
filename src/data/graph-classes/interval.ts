@@ -50,6 +50,10 @@ export const intervalClass: GraphClass = {
       title: "Interval graph - Wikipedia",
       url: "https://en.wikipedia.org/wiki/Interval_graph",
     },
+    {
+      title: "Interval - ISGCI",
+      url: "https://www.graphclasses.org/classes/gc_234.html",
+    },
   ],
   examples: [
     {

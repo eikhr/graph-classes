@@ -22,6 +22,10 @@ export const perfectClass: GraphClass = {
       title: "Perfect graph - Wikipedia",
       url: "https://en.wikipedia.org/wiki/Perfect_graph",
     },
+    {
+      title: "Perfect - ISGCI",
+      url: "https://www.graphclasses.org/classes/gc_56.html",
+    },
   ],
   examples: [
     {

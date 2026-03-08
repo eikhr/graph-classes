@@ -22,6 +22,10 @@ export const chordalClass: GraphClass = {
       title: "Chordal graph - Wikipedia",
       url: "https://en.wikipedia.org/wiki/Chordal_graph",
     },
+    {
+      title: "Chordal - ISGCI",
+      url: "https://www.graphclasses.org/classes/gc_32.html",
+    },
   ],
   examples: [
     {

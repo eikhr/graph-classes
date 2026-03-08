@@ -21,6 +21,10 @@ export const treeClass: GraphClass = {
       title: "Tree (graph theory) - Wikipedia",
       url: "https://en.wikipedia.org/wiki/Tree_(graph_theory)",
     },
+    {
+      title: "Tree - ISGCI",
+      url: "https://www.graphclasses.org/classes/gc_342.html",
+    },
   ],
   examples: [
     {

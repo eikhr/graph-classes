@@ -13,6 +13,16 @@ vi.mock("@/components/graph-icon", () => ({
   GraphIcon: () => <div data-testid="graph-icon" />,
 }));
 
+vi.mock("@/components/external-links", () => ({
+  ExternalLinks: ({ references }: { references: { title: string; url: string }[] }) => (
+    <div data-testid="external-links">
+      {references.map((ref, i) => (
+        <a key={i} href={ref.url}>{ref.title}</a>
+      ))}
+    </div>
+  ),
+}));
+
 vi.mock("@/components/glossary-text", () => ({
   GlossaryText: ({ children }: { children: string }) => (
     <>{children.replace(/\{([^}]+)\}/g, "$1")}</>
@@ -35,7 +45,7 @@ describe("Class detail page", () => {
   it("renders reference links", async () => {
     const page = await ClassPage({ params: Promise.resolve({ id: "path" }) });
     render(page);
-    expect(screen.getByText(/Wikipedia/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /wikipedia/i })).toHaveAttribute("href", expect.stringContaining("wikipedia.org"));
   });
 
   it("renders the explainer component", async () => {

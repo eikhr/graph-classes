@@ -20,6 +20,10 @@ export const bipartiteClass: GraphClass = {
       title: "Bipartite graph - Wikipedia",
       url: "https://en.wikipedia.org/wiki/Bipartite_graph",
     },
+    {
+      title: "Bipartite - ISGCI",
+      url: "https://www.graphclasses.org/classes/gc_69.html",
+    },
   ],
   examples: [
     {
