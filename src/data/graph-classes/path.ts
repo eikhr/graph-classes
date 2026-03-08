@@ -7,12 +7,12 @@ export const pathClass: GraphClass = {
     formal:
       "A path graph $P_n$ is a graph on $n$ vertices $v_1, v_2, \\ldots, v_n$ with edges $\\{v_i, v_{i+1}\\}$ for $i = 1, \\ldots, n-1$.",
     equivalentCharacterizations: [
-      "A connected graph in which every vertex has degree at most $2$ and there are no cycles",
-      "A tree with at most two leaves",
+      "A {connected} graph in which every vertex has {degree} at most $2$ and there are no cycles",
+      "A {tree} with at most two {leaves}",
     ],
   },
   description:
-    "A path graph is a graph consisting of a single sequence of vertices connected end-to-end by edges. Every path graph has exactly two endpoints (vertices of degree 1) and all internal vertices have degree 2. Path graphs are the simplest connected graphs with no cycles.",
+    "A path graph is a graph consisting of a single sequence of vertices connected end-to-end by edges. Every path graph has exactly two endpoints (vertices of {degree} 1) and all internal vertices have {degree} 2. Path graphs are the simplest {connected} graphs with no cycles.",
   superclasses: ["tree", "interval"],
   references: [
     {

@@ -37,13 +37,13 @@ export const intervalClass: GraphClass = {
       "A graph $G$ is an interval graph if it is the intersection graph of a family of intervals on the real line. That is, each vertex corresponds to an interval, and two vertices are adjacent if and only if their intervals overlap.",
     equivalentCharacterizations: [
       "A chordal graph with no asteroidal triple",
-      "The intersection graph of subpaths of a path",
+      "The intersection graph of subpaths of a {path}",
     ],
     forbiddenSubgraphs:
       "No asteroidal triple and no induced cycle $C_n$ for $n \\geq 4$",
   },
   description:
-    "An interval graph is the intersection graph of a set of intervals on the real line. Two vertices are adjacent whenever their corresponding intervals overlap. Interval graphs arise naturally in scheduling problems and temporal reasoning. They are always chordal and perfect.",
+    "An interval graph is the intersection graph of a set of intervals on the real line. Two vertices are {adjacent} whenever their corresponding intervals overlap. Interval graphs arise naturally in scheduling problems and temporal reasoning. They are always chordal and perfect.",
   superclasses: ["chordal"],
   references: [
     {

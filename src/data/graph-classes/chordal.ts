@@ -8,14 +8,14 @@ export const chordalClass: GraphClass = {
       "A graph $G$ is chordal if every cycle of length $\\geq 4$ in $G$ has a chord, i.e., an edge joining two non-consecutive vertices of the cycle.",
     equivalentCharacterizations: [
       "A graph that has a perfect elimination ordering",
-      "The intersection graph of subtrees of a tree",
+      "The intersection graph of subtrees of a {tree}",
       "A graph in which every minimal vertex separator is a clique",
     ],
     forbiddenSubgraphs:
       "No induced cycle $C_n$ for $n \\geq 4$",
   },
   description:
-    "A chordal graph (also called a triangulated graph) is a graph in which every cycle of four or more vertices has a chord — an edge connecting two non-adjacent vertices in the cycle. Chordal graphs generalize trees and are always perfect. They have many efficient algorithmic properties.",
+    "A chordal graph (also called a triangulated graph) is a graph in which every cycle of four or more vertices has a chord — an edge connecting two non-{adjacent} vertices in the cycle. Chordal graphs generalize {trees} and are always perfect. They have many efficient algorithmic properties.",
   superclasses: ["perfect"],
   references: [
     {

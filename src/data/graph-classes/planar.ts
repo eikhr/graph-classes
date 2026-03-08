@@ -61,7 +61,7 @@ export const planarClass: GraphClass = {
           ],
         },
         {
-          text: "Euler's formula says V - E + F = 2. Here: 6 vertices - 10 edges + 6 faces = 2. ✓",
+          text: "Euler's formula says V - E + F = 2. Here: 6 vertices - 10 edges + 6 {faces} = 2. ✓",
           highlightNodes: ["1", "2", "3", "4", "5", "6"],
         },
         {

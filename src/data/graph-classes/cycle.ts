@@ -7,12 +7,12 @@ export const cycleClass: GraphClass = {
     formal:
       "A cycle graph $C_n$ is a graph on $n \\geq 3$ vertices $v_1, v_2, \\ldots, v_n$ with edges $\\{v_i, v_{i+1}\\}$ for $i = 1, \\ldots, n-1$ and the edge $\\{v_n, v_1\\}$.",
     equivalentCharacterizations: [
-      "A connected $2$-regular graph",
-      "A connected graph in which every vertex has exactly degree $2$",
+      "A {connected} $2$-{regular} graph",
+      "A {connected} graph in which every vertex has exactly {degree} $2$",
     ],
   },
   description:
-    "A cycle graph is a graph consisting of a single cycle: a sequence of vertices where each vertex is connected to the next, and the last vertex connects back to the first. Every vertex in a cycle graph has exactly degree 2. The smallest cycle graph is C3, the triangle.",
+    "A cycle graph is a graph consisting of a single cycle: a sequence of vertices where each vertex is connected to the next, and the last vertex connects back to the first. Every vertex in a cycle graph has exactly {degree} 2. The smallest cycle graph is C3, the triangle.",
   superclasses: ["outerplanar"],
   references: [
     {

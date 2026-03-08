@@ -13,6 +13,12 @@ vi.mock("@/components/graph-icon", () => ({
   GraphIcon: () => <div data-testid="graph-icon" />,
 }));
 
+vi.mock("@/components/glossary-text", () => ({
+  GlossaryText: ({ children }: { children: string }) => (
+    <>{children.replace(/\{([^}]+)\}/g, "$1")}</>
+  ),
+}));
+
 describe("Class detail page", () => {
   it("renders the class name as heading", async () => {
     const page = await ClassPage({ params: Promise.resolve({ id: "path" }) });

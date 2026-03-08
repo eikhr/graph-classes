@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { GraphCanvas } from "./graph-canvas";
 import { AnnotationPanel } from "./annotation-panel";
+import { GlossaryText } from "./glossary-text";
 import { graphToDrawCommands } from "@/rendering/draw-commands";
 import type { GraphExample, Graph } from "@/types/graph";
 import styles from "./graph-explainer.module.css";
@@ -112,7 +113,9 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
         )}
       </div>
       <div className={styles["controls"]}>
-        <p className={styles["stepText"]}>{step.text}</p>
+        <p className={styles["stepText"]}>
+          <GlossaryText>{step.text}</GlossaryText>
+        </p>
         <div className={styles["stepNav"]}>
           <button
             className={styles["navButton"]}

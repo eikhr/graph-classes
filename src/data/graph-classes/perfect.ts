@@ -8,7 +8,7 @@ export const perfectClass: GraphClass = {
       "A graph $G$ is perfect if for every induced subgraph $H$ of $G$, the chromatic number equals the clique number: $\\chi(H) = \\omega(H)$.",
     equivalentCharacterizations: [
       "A graph with no odd hole and no odd antihole (Strong Perfect Graph Theorem)",
-      "A graph whose complement is also perfect (Perfect Graph Theorem)",
+      "A graph whose {complement} is also perfect (Perfect Graph Theorem)",
     ],
     forbiddenSubgraphs:
       "No induced odd hole $C_{2k+1}$ or odd antihole $\\overline{C_{2k+1}}$ for $k \\geq 2$",

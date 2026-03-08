@@ -4,6 +4,7 @@ import { findProof } from "@/data/inclusions";
 import { GraphExplainer } from "@/components/graph-explainer";
 import { GraphIcon } from "@/components/graph-icon";
 import { DefinitionBox } from "@/components/definition-box";
+import { GlossaryText } from "@/components/glossary-text";
 import styles from "./page.module.css";
 
 type Props = {
@@ -36,7 +37,9 @@ export default async function ClassPage({ params }: Props) {
         &larr; All graph classes
       </a>
       <h1>{graphClass.name}</h1>
-      <p className={styles["description"]}>{graphClass.description}</p>
+      <p className={styles["description"]}>
+        <GlossaryText>{graphClass.description}</GlossaryText>
+      </p>
 
       <DefinitionBox definition={graphClass.definition} />
 

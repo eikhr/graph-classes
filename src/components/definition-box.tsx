@@ -23,7 +23,7 @@ export function DefinitionBox({ definition }: DefinitionBoxProps) {
             <ul className={styles["list"]}>
               {definition.equivalentCharacterizations.map((char, i) => (
                 <li key={i}>
-                  <MathText>{char}</MathText>
+                  <MathText glossary>{char}</MathText>
                 </li>
               ))}
             </ul>
@@ -34,7 +34,7 @@ export function DefinitionBox({ definition }: DefinitionBoxProps) {
         <div className={styles["section"]}>
           <div className={styles["sectionLabel"]}>Forbidden subgraphs</div>
           <p className={styles["forbidden"]}>
-            <MathText>{definition.forbiddenSubgraphs}</MathText>
+            <MathText glossary>{definition.forbiddenSubgraphs}</MathText>
           </p>
         </div>
       )}

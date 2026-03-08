@@ -7,9 +7,9 @@ export const completeClass: GraphClass = {
     formal:
       "A complete graph $K_n$ is a graph on $n$ vertices in which every pair of distinct vertices is connected by an edge. $K_n$ has exactly $\\frac{n(n-1)}{2}$ edges.",
     equivalentCharacterizations: [
-      "A graph with diameter $1$ (for $n \\geq 2$)",
-      "An $(n-1)$-regular graph on $n$ vertices",
-      "The complement of the empty graph on $n$ vertices",
+      "A graph with {diameter} $1$ (for $n \\geq 2$)",
+      "An $(n-1)$-{regular} graph on $n$ vertices",
+      "The {complement} of the empty graph on $n$ vertices",
     ],
   },
   description:
@@ -64,7 +64,7 @@ export const completeClass: GraphClass = {
           ],
         },
         {
-          text: "Every vertex has degree 4 — it is connected to all other vertices.",
+          text: "Every vertex has {degree} 4 — it is {adjacent} to all other vertices.",
           highlightNodes: ["1", "2", "3", "4", "5"],
         },
       ],

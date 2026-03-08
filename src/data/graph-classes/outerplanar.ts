@@ -8,13 +8,13 @@ export const outerplanarClass: GraphClass = {
       "A graph $G$ is outerplanar if it has a planar embedding in which all vertices lie on the boundary of the outer face.",
     equivalentCharacterizations: [
       "A graph with no $K_4$ minor and no $K_{2,3}$ minor",
-      "A graph that can be drawn in the plane with no crossings and all vertices on the outer boundary",
+      "A graph that can be drawn in the plane with no crossings and all vertices on the outer {face}",
     ],
     forbiddenSubgraphs:
       "No $K_4$ minor and no $K_{2,3}$ minor",
   },
   description:
-    "An outerplanar graph is a planar graph that can be drawn with all vertices on the outer face. Trees and cycles are outerplanar. Outerplanar graphs have treewidth at most 2 and are always planar.",
+    "An outerplanar graph is a planar graph that can be drawn with all vertices on the outer {face}. {Trees} and cycles are outerplanar. Outerplanar graphs have treewidth at most 2 and are always planar.",
   superclasses: ["planar"],
   references: [
     {

@@ -42,11 +42,14 @@ export function GraphIcon({
       if (node.y > maxY) maxY = node.y;
     }
 
-    const srcW = maxX - minX || 1;
-    const srcH = maxY - minY || 1;
+    const srcW = maxX - minX;
+    const srcH = maxY - minY;
     const drawW = width - PADDING * 2;
     const drawH = height - PADDING * 2;
-    const scale = Math.min(drawW / srcW, drawH / srcH);
+    const scale = srcW === 0 && srcH === 0 ? 1 : Math.min(
+      srcW === 0 ? Infinity : drawW / srcW,
+      srcH === 0 ? Infinity : drawH / srcH,
+    );
     const offsetX = PADDING + (drawW - srcW * scale) / 2;
     const offsetY = PADDING + (drawH - srcH * scale) / 2;
 

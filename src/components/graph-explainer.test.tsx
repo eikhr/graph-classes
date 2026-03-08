@@ -11,6 +11,12 @@ vi.mock("./graph-canvas", () => ({
   ),
 }));
 
+vi.mock("./glossary-text", () => ({
+  GlossaryText: ({ children }: { children: string }) => (
+    <>{children.replace(/\{([^}]+)\}/g, "$1")}</>
+  ),
+}));
+
 const example: GraphExample = {
   graph: {
     nodes: [
