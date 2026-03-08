@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import type { Graph, GraphClass, GraphExample, ExplanationStep } from "./graph";
+import type { Graph, GraphClass, ExplanationStep, GraphNode, GraphEdge } from "./graph";
 
 describe("Graph types", () => {
   it("allows creating a valid Graph", () => {
@@ -51,5 +51,35 @@ describe("Graph types", () => {
     };
     expect(graphClass.id).toBe("path");
     expect(graphClass.examples).toHaveLength(1);
+  });
+
+  it("rejects an ExplanationStep without text", () => {
+    // @ts-expect-error - text is required
+    const step: ExplanationStep = { highlightNodes: ["a"] };
+    expect(step).toBeDefined();
+  });
+
+  it("rejects a GraphNode without id", () => {
+    // @ts-expect-error - id is required
+    const node: GraphNode = { x: 0, y: 0 };
+    expect(node).toBeDefined();
+  });
+
+  it("rejects a GraphNode without x and y", () => {
+    // @ts-expect-error - x and y are required
+    const node: GraphNode = { id: "a" };
+    expect(node).toBeDefined();
+  });
+
+  it("rejects a GraphEdge without source", () => {
+    // @ts-expect-error - source is required
+    const edge: GraphEdge = { target: "b" };
+    expect(edge).toBeDefined();
+  });
+
+  it("rejects a GraphEdge without target", () => {
+    // @ts-expect-error - target is required
+    const edge: GraphEdge = { source: "a" };
+    expect(edge).toBeDefined();
   });
 });

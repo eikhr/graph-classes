@@ -28,11 +28,16 @@ export type GraphExample = {
   steps: ExplanationStep[];
 };
 
+export type GraphReference = {
+  title: string;
+  url: string;
+};
+
 export type GraphClass = {
   id: string;
   name: string;
   description: string;
-  references: { title: string; url: string }[];
+  references: GraphReference[];
   superclasses: string[];
   examples: GraphExample[];
 };
