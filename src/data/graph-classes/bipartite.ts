@@ -3,6 +3,15 @@ import type { GraphClass } from "@/types/graph";
 export const bipartiteClass: GraphClass = {
   id: "bipartite",
   name: "Bipartite graph",
+  definition: {
+    formal:
+      "A graph G = (V, E) is bipartite if its vertex set V can be partitioned into two disjoint independent sets A and B such that every edge in E has one endpoint in A and one in B.",
+    equivalentCharacterizations: [
+      "A graph that is 2-colorable",
+      "A graph containing no odd-length cycles",
+    ],
+    forbiddenSubgraphs: "No odd cycles (C3, C5, C7, …) as subgraphs",
+  },
   description:
     "A bipartite graph is a graph whose vertices can be divided into two disjoint sets such that every edge connects a vertex in one set to a vertex in the other. Equivalently, a graph is bipartite if and only if it contains no odd-length cycles.",
   superclasses: [],

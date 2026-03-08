@@ -3,6 +3,14 @@ import type { GraphClass } from "@/types/graph";
 export const pathClass: GraphClass = {
   id: "path",
   name: "Path graph",
+  definition: {
+    formal:
+      "A path graph Pn is a graph on n vertices v1, v2, …, vn with edges {vi, vi+1} for i = 1, …, n−1.",
+    equivalentCharacterizations: [
+      "A connected graph in which every vertex has degree at most 2 and there are no cycles",
+      "A tree with at most two leaves",
+    ],
+  },
   description:
     "A path graph is a graph consisting of a single sequence of vertices connected end-to-end by edges. Every path graph has exactly two endpoints (vertices of degree 1) and all internal vertices have degree 2. Path graphs are the simplest connected graphs with no cycles.",
   superclasses: ["tree"],

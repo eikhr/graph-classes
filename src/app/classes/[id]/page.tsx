@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { graphClasses } from "@/data/graph-classes";
 import { GraphExplainer } from "@/components/graph-explainer";
+import { DefinitionBox } from "@/components/definition-box";
 import styles from "./page.module.css";
 
 type Props = {
@@ -34,6 +35,8 @@ export default async function ClassPage({ params }: Props) {
       </a>
       <h1>{graphClass.name}</h1>
       <p className={styles["description"]}>{graphClass.description}</p>
+
+      <DefinitionBox definition={graphClass.definition} />
 
       {graphClass.examples.map((example, i) => (
         <section key={i} className={styles["exampleSection"]}>

@@ -33,9 +33,16 @@ export type GraphReference = {
   url: string;
 };
 
+export type Definition = {
+  formal: string;
+  equivalentCharacterizations?: string[] | undefined;
+  forbiddenSubgraphs?: string | undefined;
+};
+
 export type GraphClass = {
   id: string;
   name: string;
+  definition: Definition;
   description: string;
   references: GraphReference[];
   superclasses: string[];

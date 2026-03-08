@@ -1,0 +1,64 @@
+.box {
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background: color-mix(in srgb, var(--accent) 4%, var(--background));
+}
+
+.label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.formal {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--foreground);
+}
+
+.section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.sectionLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.list li {
+  font-size: 0.9rem;
+  color: var(--foreground);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.list li::before {
+  content: "≡";
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+}
+
+.forbidden {
+  font-size: 0.9rem;
+  color: var(--foreground);
+}

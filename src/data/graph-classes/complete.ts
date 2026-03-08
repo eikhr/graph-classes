@@ -3,8 +3,17 @@ import type { GraphClass } from "@/types/graph";
 export const completeClass: GraphClass = {
   id: "complete",
   name: "Complete graph",
+  definition: {
+    formal:
+      "A complete graph Kn is a graph on n vertices in which every pair of distinct vertices is connected by an edge. Kn has exactly n(n−1)/2 edges.",
+    equivalentCharacterizations: [
+      "A graph with diameter 1 (for n ≥ 2)",
+      "A (n−1)-regular graph on n vertices",
+      "The complement of the empty graph on n vertices",
+    ],
+  },
   description:
-    "A complete graph is a graph in which every pair of distinct vertices is connected by a unique edge. A complete graph on n vertices, denoted Kn, has n(n-1)/2 edges. Complete graphs are the densest possible simple graphs.",
+    "A complete graph is a graph in which every pair of distinct vertices is connected by a unique edge. A complete graph on n vertices, denoted Kn, has n(n−1)/2 edges. Complete graphs are the densest possible simple graphs.",
   superclasses: [],
   references: [
     {

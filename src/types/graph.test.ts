@@ -36,6 +36,10 @@ describe("Graph types", () => {
     const graphClass: GraphClass = {
       id: "path",
       name: "Path Graph",
+      definition: {
+        formal: "A path graph Pn is a graph on n vertices.",
+        equivalentCharacterizations: ["A tree with at most two leaves"],
+      },
       description: "A graph where vertices form a single line.",
       references: [{ title: "Wikipedia", url: "https://en.wikipedia.org/wiki/Path_graph" }],
       superclasses: ["tree"],

@@ -3,8 +3,18 @@ import type { GraphClass } from "@/types/graph";
 export const treeClass: GraphClass = {
   id: "tree",
   name: "Tree",
+  definition: {
+    formal: "A tree is a connected acyclic graph.",
+    equivalentCharacterizations: [
+      "A connected graph on n vertices with exactly n−1 edges",
+      "A connected graph in which there is a unique path between every pair of vertices",
+      "A minimally connected graph: removing any edge disconnects it",
+      "A maximally acyclic graph: adding any edge creates a cycle",
+    ],
+    forbiddenSubgraphs: "Contains no cycles as subgraphs",
+  },
   description:
-    "A tree is a connected acyclic graph. Equivalently, a tree on n vertices has exactly n-1 edges and there is a unique path between every pair of vertices. Trees are fundamental structures in computer science and combinatorics.",
+    "A tree is a connected acyclic graph. Equivalently, a tree on n vertices has exactly n−1 edges and there is a unique path between every pair of vertices. Trees are fundamental structures in computer science and combinatorics.",
   superclasses: ["bipartite"],
   references: [
     {
