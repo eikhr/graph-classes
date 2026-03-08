@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(GIT_SEQUENCE_EDITOR=*)",
+      "Bash(GIT_EDITOR=*)",
+
+      "Bash(pnpm:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)",
+
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm format:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(pnpm exec:*)",
+
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(which:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "Bash(python3:*)",
+
+      "Bash(gh:*)",
+
+      "WebFetch(domain:oxc.rs)",
+      "WebFetch(domain:nextjs.org)",
+      "WebFetch(domain:playwright.dev)",
+      "WebFetch(domain:vitest.dev)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:npmjs.com)"
+    ]
+  }
+}

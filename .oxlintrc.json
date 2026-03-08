@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true
+  },
+  "plugins": ["typescript", "react", "import", "jsx-a11y"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn",
+    "style": "warn"
+  },
+  "rules": {
+    "no-console": "warn",
+    "no-debugger": "error",
+
+    "react-in-jsx-scope": "off",
+    "sort-keys": "off",
+    "sort-imports": "off",
+    "no-ternary": "off",
+    "no-magic-numbers": "off",
+    "func-style": "off",
+    "new-cap": "off",
+    "capitalized-comments": "off",
+    "no-implicit-coercion": "off",
+
+    "typescript/unbound-method": "off",
+
+    "import/no-named-export": "off",
+    "import/no-unassigned-import": "off",
+    "import/no-nodejs-modules": "off",
+    "import/prefer-default-export": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "19"
+    },
+    "next": {
+      "rootDir": ["."]
+    }
+  },
+  "ignorePatterns": [".next", "node_modules", "test-results", "playwright-report"]
+}
