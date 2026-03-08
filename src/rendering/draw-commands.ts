@@ -28,8 +28,8 @@ export type LabelCommand = {
 export type DrawCommand = CircleCommand | LineCommand | LabelCommand;
 
 export type HighlightState = {
-  highlightNodes?: string[];
-  highlightEdges?: [string, string][];
+  highlightNodes?: string[] | undefined;
+  highlightEdges?: [string, string][] | undefined;
 };
 
 const NODE_RADIUS = 16;
