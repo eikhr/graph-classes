@@ -6,9 +6,6 @@ export default function Home() {
   return (
     <main className={styles["main"]}>
       <h1 className={styles["title"]}>Graph Classes</h1>
-      <a href="/hierarchy" className={styles["hierarchyLink"]}>
-        View class hierarchy &rarr;
-      </a>
       <div className={styles["grid"]}>
         {graphClasses.map((gc) => (
           <a key={gc.id} href={`/classes/${gc.id}`} className={styles["card"]}>
@@ -16,7 +13,9 @@ export default function Home() {
               <GraphIcon graph={gc.examples[0]!.graph} />
             </div>
             <h2 className={styles["cardName"]}>{gc.name}</h2>
-            <p className={styles["cardDescription"]}>{gc.description}</p>
+            <p className={styles["cardDescription"]}>
+              {gc.description.replace(/\{([^}]+)\}/g, "$1")}
+            </p>
           </a>
         ))}
       </div>

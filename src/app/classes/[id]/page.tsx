@@ -33,9 +33,6 @@ export default async function ClassPage({ params }: Props) {
 
   return (
     <main>
-      <a href="/" className={styles["backLink"]}>
-        &larr; All graph classes
-      </a>
       <h1>{graphClass.name}</h1>
       <p className={styles["description"]}>
         <GlossaryText>{graphClass.description}</GlossaryText>

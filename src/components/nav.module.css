@@ -1,0 +1,44 @@
+.nav {
+  border-bottom: 1px solid var(--border);
+  background: var(--background);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.link {
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.link:hover {
+  color: var(--foreground);
+}
+
+.active {
+  color: var(--foreground);
+  font-weight: 500;
+}

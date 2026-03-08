@@ -4,8 +4,53 @@ import { useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import cytoscape from "cytoscape";
 import cytoscapeDagre from "cytoscape-dagre";
-import type { GraphClass } from "@/types/graph";
+import type { Graph, GraphClass } from "@/types/graph";
 import { inclusionProofs } from "@/data/inclusions";
+
+const THUMB_W = 80;
+const THUMB_H = 44;
+const THUMB_PAD = 4;
+const THUMB_NODE_R = 3;
+
+function graphToSvgDataUri(graph: Graph): string {
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (const node of graph.nodes) {
+    if (node.x < minX) minX = node.x;
+    if (node.y < minY) minY = node.y;
+    if (node.x > maxX) maxX = node.x;
+    if (node.y > maxY) maxY = node.y;
+  }
+
+  const srcW = maxX - minX;
+  const srcH = maxY - minY;
+  const drawW = THUMB_W - THUMB_PAD * 2;
+  const drawH = THUMB_H - THUMB_PAD * 2;
+  const scale = srcW === 0 && srcH === 0 ? 1 : Math.min(
+    srcW === 0 ? Infinity : drawW / srcW,
+    srcH === 0 ? Infinity : drawH / srcH,
+  );
+  const offsetX = THUMB_PAD + (drawW - srcW * scale) / 2;
+  const offsetY = THUMB_PAD + (drawH - srcH * scale) / 2;
+
+  function tx(x: number) { return offsetX + (x - minX) * scale; }
+  function ty(y: number) { return offsetY + (y - minY) * scale; }
+
+  const lines: string[] = [];
+  for (const edge of graph.edges) {
+    const s = graph.nodes.find((n) => n.id === edge.source);
+    const t = graph.nodes.find((n) => n.id === edge.target);
+    if (!s || !t) continue;
+    lines.push(`<line x1="${tx(s.x)}" y1="${ty(s.y)}" x2="${tx(t.x)}" y2="${ty(t.y)}" stroke="#9ca3af" stroke-width="1.2"/>`);
+  }
+
+  const circles: string[] = [];
+  for (const node of graph.nodes) {
+    circles.push(`<circle cx="${tx(node.x)}" cy="${ty(node.y)}" r="${THUMB_NODE_R}" fill="#6b7280"/>`);
+  }
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${THUMB_W}" height="${THUMB_H}">${lines.join("")}${circles.join("")}</svg>`;
+  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+}
 
 cytoscape.use(cytoscapeDagre);
 
@@ -24,8 +69,9 @@ export function ClassHierarchy({ classes }: ClassHierarchyProps) {
     const elements: cytoscape.ElementDefinition[] = [];
 
     for (const cls of classes) {
+      const thumb = graphToSvgDataUri(cls.examples[0]!.graph);
       elements.push({
-        data: { id: cls.id, label: cls.name },
+        data: { id: cls.id, label: cls.name, thumb },
       });
     }
 
@@ -58,19 +104,24 @@ export function ClassHierarchy({ classes }: ClassHierarchyProps) {
           selector: "node",
           style: {
             label: "data(label)",
-            "text-valign": "center",
+            "text-valign": "bottom",
             "text-halign": "center",
-            "font-size": "13px",
+            "text-margin-y": -24,
+            "font-size": "12px",
             color: fg,
             "background-color": surface,
             "border-width": 1.5,
             "border-color": border,
             shape: "round-rectangle",
-            width: 140,
-            height: 36,
+            width: 150,
+            height: 90,
             "text-wrap": "wrap",
             "text-max-width": "130px",
-          },
+            "background-image": "data(thumb)",
+            "background-width": `${THUMB_W}px`,
+            "background-height": `${THUMB_H}px`,
+            "background-position-y": "30%",
+          } as cytoscape.Css.Node,
         },
         {
           selector: "edge",
@@ -138,7 +189,7 @@ export function ClassHierarchy({ classes }: ClassHierarchyProps) {
   return (
     <div
       ref={containerRef}
-      style={{ width: "100%", height: "500px" }}
+      style={{ width: "100%", height: "700px" }}
       role="img"
       aria-label="Graph class hierarchy diagram"
     />

@@ -29,10 +29,6 @@ export default async function InclusionPage({ params }: Props) {
 
   return (
     <main>
-      <a href={`/classes/${from}`} className={styles["backLink"]}>
-        &larr; Back to {fromClass.name}
-      </a>
-
       <h1 className={styles["title"]}>
         <a href={`/classes/${from}`} className={styles["className"]}>
           {fromClass.name}
