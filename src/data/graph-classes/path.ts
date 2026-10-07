@@ -13,7 +13,7 @@ export const pathClass: GraphClass = {
   },
   description:
     "A path graph is a graph consisting of a single sequence of vertices connected end-to-end by edges. Every path graph has exactly two endpoints (vertices of {degree} 1) and all internal vertices have {degree} 2. Path graphs are the simplest {connected} graphs with no cycles.",
-  superclasses: ["tree", "interval"],
+  superclasses: ["tree", "proper-interval"],
   references: [
     {
       title: "Path graph - Wikipedia",

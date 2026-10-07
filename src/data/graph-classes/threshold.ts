@@ -12,8 +12,8 @@ export const thresholdClass: GraphClass = {
     ],
   },
   description:
-    "A threshold graph is a graph that can be built by starting with a single {vertex} and repeatedly adding either an isolated {vertex} or a dominating {vertex} ({adjacent} to all existing vertices). Threshold graphs are simultaneously cographs and proper interval graphs.",
-  superclasses: ["cograph", "proper-interval", "clique"],
+    "A threshold graph is a graph that can be built by starting with a single {vertex} and repeatedly adding either an isolated {vertex} or a dominating {vertex} ({adjacent} to all existing vertices). Threshold graphs are simultaneously cographs and interval graphs. They need not be proper interval graphs: the claw (a star with three leaves) is a threshold graph but not a proper interval graph.",
+  superclasses: ["cograph", "interval", "clique"],
   references: [
     {
       title: "Threshold graph - Wikipedia",
