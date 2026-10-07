@@ -2,24 +2,16 @@ import { test, expect } from "@playwright/test";
 
 test("home page shows graph class cards", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Graph Classes",
-  );
-  await expect(
-    page.getByRole("heading", { name: "Path graph" }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Complete graph" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Graph Classes");
+  await expect(page.getByRole("heading", { name: "Path graph" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Complete graph" })).toBeVisible();
 });
 
 test("clicking a card navigates to class page", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("heading", { name: "Path graph" }).click();
   await expect(page).toHaveURL("/classes/path");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Path graph",
-  );
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Path graph");
 });
 
 test("class page has working step navigation", async ({ page }) => {
@@ -31,5 +23,5 @@ test("class page has working step navigation", async ({ page }) => {
 
 test("class page shows references", async ({ page }) => {
   await page.goto("/classes/path");
-  await expect(page.getByText("Wikipedia")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Wikipedia" })).toBeVisible();
 });
