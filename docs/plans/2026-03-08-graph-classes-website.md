@@ -13,6 +13,7 @@
 ### Task 1: Data Model Types
 
 **Files:**
+
 - Create: `src/types/graph.ts`
 - Test: `src/types/graph.test.ts`
 
@@ -143,6 +144,7 @@ git commit -m "feat: add graph data model types"
 ### Task 2: Draw Command Abstraction
 
 **Files:**
+
 - Create: `src/rendering/draw-commands.ts`
 - Test: `src/rendering/draw-commands.test.ts`
 
@@ -291,16 +293,11 @@ export type HighlightState = {
 
 const NODE_RADIUS = 16;
 
-export function graphToDrawCommands(
-  graph: Graph,
-  highlight: HighlightState,
-): DrawCommand[] {
+export function graphToDrawCommands(graph: Graph, highlight: HighlightState): DrawCommand[] {
   const commands: DrawCommand[] = [];
   const nodeSet = new Set(highlight.highlightNodes ?? []);
 
-  const edgeSet = new Set(
-    (highlight.highlightEdges ?? []).map(([s, t]) => `${s}->${t}`),
-  );
+  const edgeSet = new Set((highlight.highlightEdges ?? []).map(([s, t]) => `${s}->${t}`));
 
   // Edges first (drawn behind nodes)
   for (const edge of graph.edges) {
@@ -363,6 +360,7 @@ git commit -m "feat: add draw-command abstraction for graph rendering"
 ### Task 3: Canvas Renderer Component
 
 **Files:**
+
 - Create: `src/components/graph-canvas.tsx`
 - Test: `src/components/graph-canvas.ct.tsx` (Playwright CT — needs real canvas)
 
@@ -383,7 +381,11 @@ const sampleCommands: DrawCommand[] = [
 
 test("renders a canvas element", async ({ mount }) => {
   const component = await mount(
-    <GraphCanvas commands={sampleCommands} width={400} height={300} />,
+    <GraphCanvas
+      commands={sampleCommands}
+      width={400}
+      height={300}
+    />,
   );
   const canvas = component.locator("canvas");
   await expect(canvas).toBeVisible();
@@ -391,7 +393,11 @@ test("renders a canvas element", async ({ mount }) => {
 
 test("canvas has correct dimensions", async ({ mount }) => {
   const component = await mount(
-    <GraphCanvas commands={sampleCommands} width={400} height={300} />,
+    <GraphCanvas
+      commands={sampleCommands}
+      width={400}
+      height={300}
+    />,
   );
   const canvas = component.locator("canvas");
   await expect(canvas).toHaveCSS("width", "400px");
@@ -507,6 +513,7 @@ git commit -m "feat: add GraphCanvas component with draw-command rendering"
 ### Task 4: Graph Explainer Component
 
 **Files:**
+
 - Create: `src/components/graph-explainer.tsx`
 - Test: `src/components/graph-explainer.test.tsx` (Vitest — tests logic/DOM, not canvas pixels)
 
@@ -523,7 +530,10 @@ import type { GraphExample } from "@/types/graph";
 // Mock canvas — jsdom doesn't support canvas rendering
 vi.mock("./graph-canvas", () => ({
   GraphCanvas: ({ commands }: { commands: unknown[] }) => (
-    <div data-testid="graph-canvas" data-command-count={commands.length} />
+    <div
+      data-testid="graph-canvas"
+      data-command-count={commands.length}
+    />
   ),
 }));
 
@@ -644,7 +654,11 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
 
   return (
     <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
-      <GraphCanvas commands={commands} width={400} height={300} />
+      <GraphCanvas
+        commands={commands}
+        width={400}
+        height={300}
+      />
       <div>
         <p>{step.text}</p>
         <p>
@@ -687,6 +701,7 @@ git commit -m "feat: add GraphExplainer component with step navigation"
 ### Task 5: Starter Graph Class Data (Paths, Cycles, Trees, Bipartite, Complete)
 
 **Files:**
+
 - Create: `src/data/graph-classes/path.ts`
 - Create: `src/data/graph-classes/cycle.ts`
 - Create: `src/data/graph-classes/tree.ts`
@@ -755,14 +770,16 @@ Expected: FAIL — module not found
 **Step 3: Write the data files**
 
 Create each of the five graph class data files and the index. Each class should have:
+
 - Accurate description (2-3 sentences)
 - 1 example graph with 3-5 explanation steps that walk through the class's defining property
 - 1-2 references (Wikipedia + a textbook/paper)
 - Correct superclass relationships
 
 Inclusion hierarchy:
+
 - path → superclasses: ["tree"]
-- cycle → superclasses: []  (cycles are not trees or bipartite in general)
+- cycle → superclasses: [] (cycles are not trees or bipartite in general)
 - tree → superclasses: ["bipartite"]
 - bipartite → superclasses: []
 - complete → superclasses: []
@@ -806,6 +823,7 @@ git commit -m "feat: add starter graph class data (path, cycle, tree, bipartite,
 ### Task 6: Home Page — Grid of Graph Class Cards
 
 **Files:**
+
 - Modify: `src/app/page.tsx`
 - Modify: `src/app/layout.tsx` (update metadata)
 - Create: `src/app/page.module.css` (replace existing boilerplate styles)
@@ -869,6 +887,7 @@ git commit -m "feat: add home page with graph class card grid"
 ### Task 7: Class Detail Page with Animated Examples
 
 **Files:**
+
 - Create: `src/app/classes/[id]/page.tsx`
 - Test: `src/app/classes/[id]/page.test.tsx`
 
@@ -883,7 +902,10 @@ import ClassPage from "./page";
 // Mock canvas
 vi.mock("@/components/graph-canvas", () => ({
   GraphCanvas: ({ commands }: { commands: unknown[] }) => (
-    <div data-testid="graph-canvas" data-command-count={commands.length} />
+    <div
+      data-testid="graph-canvas"
+      data-command-count={commands.length}
+    />
   ),
 }));
 
@@ -951,9 +973,7 @@ export default async function ClassPage({ params }: Props) {
     notFound();
   }
 
-  const superclassData = graphClasses.filter((gc) =>
-    graphClass.superclasses.includes(gc.id),
-  );
+  const superclassData = graphClasses.filter((gc) => graphClass.superclasses.includes(gc.id));
 
   return (
     <main>
@@ -984,7 +1004,11 @@ export default async function ClassPage({ params }: Props) {
         <ul>
           {graphClass.references.map((ref, i) => (
             <li key={i}>
-              <a href={ref.url} target="_blank" rel="noopener noreferrer">
+              <a
+                href={ref.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {ref.title}
               </a>
             </li>
@@ -1013,6 +1037,7 @@ git commit -m "feat: add graph class detail page with explainer and references"
 ### Task 8: E2E Smoke Test
 
 **Files:**
+
 - Modify: `e2e/home.spec.ts` (or create if it doesn't exist)
 
 **Step 1: Write the failing E2E test**
@@ -1072,6 +1097,7 @@ git commit -m "test: add E2E smoke tests for home and class pages"
 ### Task 9: Cleanup and Polish
 
 **Files:**
+
 - Modify: `src/app/globals.css` (add base styles for the site)
 - Delete: `src/components/heading.tsx` and `src/components/heading.ct.tsx` (unused boilerplate)
 - Delete: `public/next.svg`, `public/vercel.svg`, `public/file.svg`, `public/globe.svg`, `public/window.svg` (unused)

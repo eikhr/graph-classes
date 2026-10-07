@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useCallback } from "react";
+
 import type { DrawCommand } from "@/rendering/draw-commands";
 
 type GraphCanvasProps = {
@@ -23,28 +24,24 @@ type Palette = {
 };
 
 const LIGHT_PALETTE: Palette = {
-  highlight: [59, 130, 246],   // #3b82f6
-  secondary: [245, 158, 11],   // #f59e0b
-  default: [107, 114, 128],    // #6b7280
-  dim: [209, 213, 219],        // #d1d5db
+  highlight: [59, 130, 246], // #3b82f6
+  secondary: [245, 158, 11], // #f59e0b
+  default: [107, 114, 128], // #6b7280
+  dim: [209, 213, 219], // #d1d5db
   labelFill: "#ffffff",
 };
 
 const DARK_PALETTE: Palette = {
-  highlight: [96, 165, 250],   // #60a5fa
-  secondary: [251, 191, 36],   // #fbbf24
-  default: [156, 163, 175],    // #9ca3af
-  dim: [55, 65, 81],           // #374151
+  highlight: [96, 165, 250], // #60a5fa
+  secondary: [251, 191, 36], // #fbbf24
+  default: [156, 163, 175], // #9ca3af
+  dim: [55, 65, 81], // #374151
   labelFill: "#0a0a0a",
 };
 
 function parseHex(hex: string): RGB {
   const h = hex.startsWith("#") ? hex.slice(1) : hex;
-  return [
-    parseInt(h.slice(0, 2), 16),
-    parseInt(h.slice(2, 4), 16),
-    parseInt(h.slice(4, 6), 16),
-  ];
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
 }
 
 function lerpRgb(a: RGB, b: RGB, t: number): string {
@@ -58,19 +55,19 @@ function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 
-function getTargetColor(
-  cmd: DrawCommand,
-  hasAnyHighlight: boolean,
-  palette: Palette,
-): RGB {
+function getTargetColor(cmd: DrawCommand, hasAnyHighlight: boolean, palette: Palette): RGB {
   if (cmd.color !== undefined) {
     if (hasAnyHighlight && !cmd.highlighted) {
       return palette.dim;
     }
     return parseHex(cmd.color);
   }
-  if (!hasAnyHighlight) return palette.default;
-  if (!cmd.highlighted) return palette.dim;
+  if (!hasAnyHighlight) {
+    return palette.default;
+  }
+  if (!cmd.highlighted) {
+    return palette.dim;
+  }
   if ("highlightGroup" in cmd && cmd.highlightGroup === "secondary") {
     return palette.secondary;
   }
@@ -90,7 +87,7 @@ function getTargetPosition(cmd: DrawCommand): Position {
 
 // Easing: ease-out cubic
 function ease(t: number): number {
-  return 1 - Math.pow(1 - t, 3);
+  return 1 - (1 - t) ** 3;
 }
 
 // Build a key to match commands across frames
@@ -108,18 +105,15 @@ type AnimationState = {
 
 function detectPalette(el: HTMLElement): Palette {
   const bg = getComputedStyle(el).getPropertyValue("--background").trim();
-  if (!bg) return LIGHT_PALETTE;
+  if (!bg) {
+    return LIGHT_PALETTE;
+  }
   const rgb = parseHex(bg);
   // Simple luminance check: dark background = dark mode
   return rgb[0] + rgb[1] + rgb[2] < 384 ? DARK_PALETTE : LIGHT_PALETTE;
 }
 
-export function GraphCanvas({
-  commands,
-  width,
-  height,
-  onNodeClick,
-}: GraphCanvasProps) {
+export function GraphCanvas({ commands, width, height, onNodeClick }: GraphCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animStateRef = useRef<Map<string, AnimationState>>(new Map());
   const animFrameRef = useRef<number>(0);
@@ -127,13 +121,17 @@ export function GraphCanvas({
   const hitTestNode = useCallback(
     (clientX: number, clientY: number): string | null => {
       const canvas = canvasRef.current;
-      if (!canvas) return null;
+      if (!canvas) {
+        return null;
+      }
       const rect = canvas.getBoundingClientRect();
       const x = clientX - rect.left;
       const y = clientY - rect.top;
 
       for (const cmd of commands) {
-        if (cmd.type !== "circle") continue;
+        if (cmd.type !== "circle") {
+          continue;
+        }
         const dx = x - cmd.x;
         const dy = y - cmd.y;
         if (dx * dx + dy * dy <= cmd.radius * cmd.radius) {
@@ -147,7 +145,9 @@ export function GraphCanvas({
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
-      if (!onNodeClick) return;
+      if (!onNodeClick) {
+        return;
+      }
       const nodeId = hitTestNode(e.clientX, e.clientY);
       if (nodeId) {
         onNodeClick(nodeId);
@@ -158,9 +158,13 @@ export function GraphCanvas({
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
-      if (!onNodeClick) return;
+      if (!onNodeClick) {
+        return;
+      }
       const canvas = canvasRef.current;
-      if (!canvas) return;
+      if (!canvas) {
+        return;
+      }
       const nodeId = hitTestNode(e.clientX, e.clientY);
       canvas.style.cursor = nodeId ? "pointer" : "";
     },
@@ -168,12 +172,7 @@ export function GraphCanvas({
   );
 
   const draw = useCallback(
-    (
-      ctx: CanvasRenderingContext2D,
-      canvasBg: string,
-      palette: Palette,
-      t: number,
-    ) => {
+    (ctx: CanvasRenderingContext2D, canvasBg: string, palette: Palette, t: number) => {
       ctx.save();
       const dpr = window.devicePixelRatio || 1;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -207,16 +206,8 @@ export function GraphCanvas({
 
         switch (cmd.type) {
           case "line": {
-            const x2 = lerp(
-              prev.pos.x2 ?? targetPos.x2!,
-              targetPos.x2!,
-              t,
-            );
-            const y2 = lerp(
-              prev.pos.y2 ?? targetPos.y2!,
-              targetPos.y2!,
-              t,
-            );
+            const x2 = lerp(prev.pos.x2 ?? targetPos.x2!, targetPos.x2!, t);
+            const y2 = lerp(prev.pos.y2 ?? targetPos.y2!, targetPos.y2!, t);
             ctx.beginPath();
             ctx.moveTo(x, y);
             ctx.lineTo(x2, y2);
@@ -250,18 +241,20 @@ export function GraphCanvas({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      return;
+    }
 
     const dpr = window.devicePixelRatio || 1;
     canvas.width = width * dpr;
     canvas.height = height * dpr;
 
-    const canvasBg =
-      getComputedStyle(canvas).getPropertyValue("--canvas-bg").trim() ||
-      "#fafafa";
+    const canvasBg = getComputedStyle(canvas).getPropertyValue("--canvas-bg").trim() || "#fafafa";
     const palette = detectPalette(canvas);
 
     const startTime = performance.now();

@@ -10,31 +10,31 @@ All graph class data lives in TypeScript files — no database, no CMS. Adding a
 
 ```ts
 type Graph = {
-  nodes: { id: string; x: number; y: number; label?: string }[]
-  edges: { source: string; target: string }[]
-}
+  nodes: { id: string; x: number; y: number; label?: string }[];
+  edges: { source: string; target: string }[];
+};
 
 type GraphClass = {
-  id: string
-  name: string
-  description: string
-  references: { title: string; url: string }[]
-  superclasses: string[]  // IDs of parent classes in inclusion hierarchy
-  examples: GraphExample[]
-}
+  id: string;
+  name: string;
+  description: string;
+  references: { title: string; url: string }[];
+  superclasses: string[]; // IDs of parent classes in inclusion hierarchy
+  examples: GraphExample[];
+};
 
 type GraphExample = {
-  graph: Graph
-  steps: ExplanationStep[]
-}
+  graph: Graph;
+  steps: ExplanationStep[];
+};
 
 type ExplanationStep = {
-  text: string
-  highlightNodes?: string[]
-  highlightEdges?: [string, string][]
-  addedNodes?: { id: string; x: number; y: number; label?: string }[]
-  addedEdges?: { source: string; target: string }[]
-}
+  text: string;
+  highlightNodes?: string[];
+  highlightEdges?: [string, string][];
+  addedNodes?: { id: string; x: number; y: number; label?: string }[];
+  addedEdges?: { source: string; target: string }[];
+};
 ```
 
 ## Canvas Renderer
@@ -71,6 +71,7 @@ A `<GraphExplainer>` component:
 Five graph classes: Paths, Cycles, Trees, Bipartite, Complete.
 
 Each includes:
+
 - 1-2 example graphs with 3-5 explanation steps
 - 1-2 reference links (Wikipedia or papers)
 - Inclusion relationships (e.g. paths ⊂ trees ⊂ bipartite)

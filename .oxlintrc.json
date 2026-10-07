@@ -23,13 +23,24 @@
     "new-cap": "off",
     "capitalized-comments": "off",
     "no-implicit-coercion": "off",
+    "id-length": "off",
+    "max-statements": "off",
+    "no-continue": "off",
+    "max-params": "off",
+    "init-declarations": "off",
 
     "typescript/unbound-method": "off",
+    "typescript/consistent-type-definitions": ["warn", "type"],
+
+    "react/jsx-max-depth": "off",
+    "react/no-array-index-key": "off",
 
     "import/no-named-export": "off",
     "import/no-unassigned-import": "off",
     "import/no-nodejs-modules": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/group-exports": "off",
+    "import/exports-last": "off"
   },
   "settings": {
     "react": {

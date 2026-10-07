@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+
 import type { GlossaryEntry } from "@/data/glossary";
+
 import { GraphIcon } from "./graph-icon";
+
 import styles from "./glossary-term.module.css";
 
 type GlossaryTermProps = {
@@ -18,9 +21,11 @@ export function GlossaryTerm({ entry, children }: GlossaryTermProps) {
   const close = useCallback(() => setOpen(false), []);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      return;
+    }
     function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+      if (ref.current && e.target instanceof Node && !ref.current.contains(e.target)) {
         close();
       }
     }
@@ -39,7 +44,10 @@ export function GlossaryTerm({ entry, children }: GlossaryTermProps) {
   }
 
   return (
-    <span className={styles["wrapper"]} ref={ref}>
+    <span
+      className={styles["wrapper"]}
+      ref={ref}
+    >
       <button
         className={styles["trigger"]}
         onClick={handleToggle}

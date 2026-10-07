@@ -1,11 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+
 import ClassPage from "./page";
 
 // Mock canvas — jsdom doesn't support canvas rendering
 vi.mock("@/components/graph-canvas", () => ({
   GraphCanvas: ({ commands }: { commands: unknown[] }) => (
-    <div data-testid="graph-canvas" data-command-count={commands.length} />
+    <div
+      data-testid="graph-canvas"
+      data-command-count={commands.length}
+    />
   ),
 }));
 
@@ -17,7 +21,12 @@ vi.mock("@/components/external-links", () => ({
   ExternalLinks: ({ references }: { references: { title: string; url: string }[] }) => (
     <div data-testid="external-links">
       {references.map((ref, i) => (
-        <a key={i} href={ref.url}>{ref.title}</a>
+        <a
+          key={i}
+          href={ref.url}
+        >
+          {ref.title}
+        </a>
       ))}
     </div>
   ),
@@ -45,7 +54,10 @@ describe("Class detail page", () => {
   it("renders reference links", async () => {
     const page = await ClassPage({ params: Promise.resolve({ id: "path" }) });
     render(page);
-    expect(screen.getByRole("link", { name: /wikipedia/i })).toHaveAttribute("href", expect.stringContaining("wikipedia.org"));
+    expect(screen.getByRole("link", { name: /wikipedia/i })).toHaveAttribute(
+      "href",
+      expect.stringContaining("wikipedia.org"),
+    );
   });
 
   it("renders the explainer component", async () => {

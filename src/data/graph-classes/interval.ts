@@ -39,8 +39,7 @@ export const intervalClass: GraphClass = {
       "A chordal graph with no asteroidal triple",
       "The intersection graph of subpaths of a {path}",
     ],
-    forbiddenSubgraphs:
-      "No asteroidal triple and no induced cycle $C_n$ for $n \\geq 4$",
+    forbiddenSubgraphs: "No asteroidal triple and no induced cycle $C_n$ for $n \\geq 4$",
   },
   description:
     "An interval graph is the intersection graph of a set of intervals on the real line. Two vertices are {adjacent} whenever their corresponding intervals overlap. Interval graphs arise naturally in scheduling problems and temporal reasoning. They are always chordal and perfect.",

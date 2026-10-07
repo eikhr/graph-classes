@@ -1,6 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { graphToDrawCommands } from "./draw-commands";
+
 import type { Graph } from "@/types/graph";
+
+import { graphToDrawCommands } from "./draw-commands";
 
 describe("graphToDrawCommands", () => {
   it("generates circle commands for nodes", () => {

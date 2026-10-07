@@ -1,6 +1,7 @@
 "use client";
 
 import { InlineMath } from "react-katex";
+
 import { GlossaryText } from "./glossary-text";
 
 type MathTextProps = {
@@ -21,7 +22,12 @@ export function MathText({ children, glossary }: MathTextProps) {
       {parts.map((part, i) => {
         if (part.startsWith("$") && part.endsWith("$")) {
           const math = part.slice(1, -1);
-          return <InlineMath key={i} math={math} />;
+          return (
+            <InlineMath
+              key={i}
+              math={math}
+            />
+          );
         }
         if (glossary) {
           return <GlossaryText key={i}>{part}</GlossaryText>;

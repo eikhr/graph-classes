@@ -1,5 +1,7 @@
 import type { Definition } from "@/types/graph";
+
 import { MathText } from "./math-text";
+
 import styles from "./definition-box.module.css";
 
 type DefinitionBoxProps = {
@@ -17,9 +19,7 @@ export function DefinitionBox({ definition }: DefinitionBoxProps) {
       {definition.equivalentCharacterizations &&
         definition.equivalentCharacterizations.length > 0 && (
           <div className={styles["section"]}>
-            <div className={styles["sectionLabel"]}>
-              Equivalent characterizations
-            </div>
+            <div className={styles["sectionLabel"]}>Equivalent characterizations</div>
             <ul className={styles["list"]}>
               {definition.equivalentCharacterizations.map((char, i) => (
                 <li key={i}>

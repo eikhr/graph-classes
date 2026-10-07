@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+
+import { GraphExplainer } from "@/components/graph-explainer";
 import { graphClasses } from "@/data/graph-classes";
 import { inclusionProofs, findProof } from "@/data/inclusions";
-import { GraphExplainer } from "@/components/graph-explainer";
+
 import styles from "./page.module.css";
 
 type Props = {
@@ -30,11 +32,17 @@ export default async function InclusionPage({ params }: Props) {
   return (
     <main>
       <h1 className={styles["title"]}>
-        <a href={`/classes/${from}`} className={styles["className"]}>
+        <a
+          href={`/classes/${from}`}
+          className={styles["className"]}
+        >
           {fromClass.name}
         </a>
         <span className={styles["arrow"]}>&sub;</span>
-        <a href={`/classes/${to}`} className={styles["className"]}>
+        <a
+          href={`/classes/${to}`}
+          className={styles["className"]}
+        >
           {toClass.name}
         </a>
       </h1>

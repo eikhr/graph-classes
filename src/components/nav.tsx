@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+
 import styles from "./nav.module.css";
 
 export function Nav() {
@@ -9,7 +10,10 @@ export function Nav() {
   return (
     <nav className={styles["nav"]}>
       <div className={styles["inner"]}>
-        <a href="/" className={styles["brand"]}>
+        <a
+          href="/"
+          className={styles["brand"]}
+        >
           Graph Classes
         </a>
         <div className={styles["links"]}>

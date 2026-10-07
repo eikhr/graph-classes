@@ -17,4 +17,5 @@ const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 await page.goto(url, { waitUntil: "networkidle" });
 await page.screenshot({ path: output, fullPage: true });
 await browser.close();
+// oxlint-disable-next-line no-console
 console.log(`Screenshot saved: ${output}`);

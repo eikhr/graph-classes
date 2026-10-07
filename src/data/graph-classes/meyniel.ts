@@ -4,8 +4,7 @@ export const meynielClass: GraphClass = {
   id: "meyniel",
   name: "Meyniel graph",
   definition: {
-    formal:
-      "A graph is Meyniel if every odd {cycle} of length $\\geq 5$ has at least two chords.",
+    formal: "A graph is Meyniel if every odd {cycle} of length $\\geq 5$ has at least two chords.",
     equivalentCharacterizations: [
       "A graph in which every odd {cycle} of length $\\geq 5$ has at least two chords",
       "A very strongly perfect graph",

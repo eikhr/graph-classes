@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
-import { graphClasses } from "@/data/graph-classes";
-import { findProof } from "@/data/inclusions";
+
+import { DefinitionBox } from "@/components/definition-box";
+import { ExternalLinks } from "@/components/external-links";
+import { GlossaryText } from "@/components/glossary-text";
 import { GraphExplainer } from "@/components/graph-explainer";
 import { GraphIcon } from "@/components/graph-icon";
-import { DefinitionBox } from "@/components/definition-box";
-import { GlossaryText } from "@/components/glossary-text";
-import { ExternalLinks } from "@/components/external-links";
+import { graphClasses } from "@/data/graph-classes";
+import { findProof } from "@/data/inclusions";
+
 import styles from "./page.module.css";
 
 type Props = {
@@ -24,13 +26,9 @@ export default async function ClassPage({ params }: Props) {
     notFound();
   }
 
-  const superclassData = graphClasses.filter((gc) =>
-    graphClass.superclasses.includes(gc.id),
-  );
+  const superclassData = graphClasses.filter((gc) => graphClass.superclasses.includes(gc.id));
 
-  const subclassData = graphClasses.filter((gc) =>
-    gc.superclasses.includes(graphClass.id),
-  );
+  const subclassData = graphClasses.filter((gc) => gc.superclasses.includes(graphClass.id));
 
   return (
     <main>
@@ -45,7 +43,10 @@ export default async function ClassPage({ params }: Props) {
       <DefinitionBox definition={graphClass.definition} />
 
       {graphClass.examples.map((example, i) => (
-        <section key={i} className={styles["exampleSection"]}>
+        <section
+          key={i}
+          className={styles["exampleSection"]}
+        >
           <GraphExplainer example={example} />
         </section>
       ))}
@@ -58,7 +59,10 @@ export default async function ClassPage({ params }: Props) {
               {superclassData.map((sc) => {
                 const proof = findProof(graphClass.id, sc.id);
                 return (
-                  <li key={sc.id} className={styles["relatedItem"]}>
+                  <li
+                    key={sc.id}
+                    className={styles["relatedItem"]}
+                  >
                     <GraphIcon
                       graph={sc.examples[0]!.graph}
                       width={60}
@@ -66,10 +70,7 @@ export default async function ClassPage({ params }: Props) {
                     />
                     {proof ? (
                       <a href={`/inclusions/${graphClass.id}/${sc.id}`}>
-                        {sc.name}{" "}
-                        <span className={styles["proofHint"]}>
-                          — see why
-                        </span>
+                        {sc.name} <span className={styles["proofHint"]}>— see why</span>
                       </a>
                     ) : (
                       <a href={`/classes/${sc.id}`}>{sc.name}</a>
@@ -88,7 +89,10 @@ export default async function ClassPage({ params }: Props) {
               {subclassData.map((sc) => {
                 const proof = findProof(sc.id, graphClass.id);
                 return (
-                  <li key={sc.id} className={styles["relatedItem"]}>
+                  <li
+                    key={sc.id}
+                    className={styles["relatedItem"]}
+                  >
                     <GraphIcon
                       graph={sc.examples[0]!.graph}
                       width={60}
@@ -96,10 +100,7 @@ export default async function ClassPage({ params }: Props) {
                     />
                     {proof ? (
                       <a href={`/inclusions/${sc.id}/${graphClass.id}`}>
-                        {sc.name}{" "}
-                        <span className={styles["proofHint"]}>
-                          — see why
-                        </span>
+                        {sc.name} <span className={styles["proofHint"]}>— see why</span>
                       </a>
                     ) : (
                       <a href={`/classes/${sc.id}`}>{sc.name}</a>
@@ -110,7 +111,6 @@ export default async function ClassPage({ params }: Props) {
             </ul>
           </div>
         )}
-
       </div>
     </main>
   );

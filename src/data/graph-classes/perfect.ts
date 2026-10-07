@@ -1,5 +1,5 @@
-import type { GraphClass } from "@/types/graph";
 import { regularPolygon } from "@/data/graph-helpers";
+import type { GraphClass } from "@/types/graph";
 
 export const perfectClass: GraphClass = {
   id: "perfect",
@@ -31,7 +31,9 @@ export const perfectClass: GraphClass = {
     {
       graph: {
         nodes: regularPolygon(5, {
-          cx: 240, cy: 150, r: 115,
+          cx: 240,
+          cy: 150,
+          r: 115,
           ids: ["a", "b", "c", "d", "e"],
           labels: ["a", "b", "c", "d", "e"],
         }),

@@ -1,5 +1,6 @@
-import { graphClasses } from "@/data/graph-classes";
 import { ClassHierarchy } from "@/components/class-hierarchy";
+import { graphClasses } from "@/data/graph-classes";
+
 import styles from "./page.module.css";
 
 export default function HierarchyPage() {

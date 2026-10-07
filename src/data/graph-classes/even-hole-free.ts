@@ -4,11 +4,8 @@ export const evenHoleFreeClass: GraphClass = {
   id: "even-hole-free",
   name: "Even-hole-free graph",
   definition: {
-    formal:
-      "A graph containing no induced {cycle} of even length $\\geq 6$.",
-    equivalentCharacterizations: [
-      "A graph with no induced $C_{2k}$ for $k \\geq 3$",
-    ],
+    formal: "A graph containing no induced {cycle} of even length $\\geq 6$.",
+    equivalentCharacterizations: ["A graph with no induced $C_{2k}$ for $k \\geq 3$"],
   },
   description:
     "An even-hole-free graph is a graph that contains no induced {cycle} of even length six or more. This class contains all chordal graphs (which have no induced cycles at all) but allows odd holes like C₅ and C₇.",

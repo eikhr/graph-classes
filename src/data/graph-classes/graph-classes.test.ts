@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+
 import { graphClasses } from "./index";
 
 describe("graph class data", () => {
@@ -28,10 +29,22 @@ describe("graph class data", () => {
   it("includes all expected graph classes", () => {
     const ids = graphClasses.map((gc) => gc.id);
     for (const expected of [
-      "path", "cycle", "tree", "bipartite", "complete",
-      "interval", "chordal", "perfect", "outerplanar", "planar",
-      "threshold", "cograph", "proper-interval", "meyniel",
-      "even-hole-free", "clique",
+      "path",
+      "cycle",
+      "tree",
+      "bipartite",
+      "complete",
+      "interval",
+      "chordal",
+      "perfect",
+      "outerplanar",
+      "planar",
+      "threshold",
+      "cograph",
+      "proper-interval",
+      "meyniel",
+      "even-hole-free",
+      "clique",
     ]) {
       expect(ids).toContain(expected);
     }

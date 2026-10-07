@@ -1,6 +1,7 @@
 "use client";
 
 import type { Annotation } from "@/types/graph";
+
 import { IntervalBars } from "./interval-bars";
 
 type AnnotationPanelProps = {
@@ -9,11 +10,7 @@ type AnnotationPanelProps = {
   onSelect: (id: string) => void;
 };
 
-export function AnnotationPanel({
-  annotation,
-  selectedId,
-  onSelect,
-}: AnnotationPanelProps) {
+export function AnnotationPanel({ annotation, selectedId, onSelect }: AnnotationPanelProps) {
   switch (annotation.type) {
     case "interval-bars":
       return (

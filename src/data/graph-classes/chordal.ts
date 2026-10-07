@@ -11,8 +11,7 @@ export const chordalClass: GraphClass = {
       "The intersection graph of subtrees of a {tree}",
       "A graph in which every minimal vertex separator is a clique",
     ],
-    forbiddenSubgraphs:
-      "No induced cycle $C_n$ for $n \\geq 4$",
+    forbiddenSubgraphs: "No induced cycle $C_n$ for $n \\geq 4$",
   },
   description:
     "A chordal graph (also called a triangulated graph) is a graph in which every cycle of four or more vertices has a chord — an edge connecting two non-{adjacent} vertices in the cycle. Chordal graphs generalize {trees} and are always perfect. They have many efficient algorithmic properties.",

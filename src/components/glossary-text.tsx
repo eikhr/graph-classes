@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
+
 import { glossaryPatterns, lookupGlossary } from "@/data/glossary";
+
 import { GlossaryTerm } from "./glossary-term";
 
 type GlossaryTextProps = {
@@ -17,9 +19,7 @@ function tokenize(text: string): Fragment[] {
   const fragments: Fragment[] = [];
 
   // Build regex: explicit {term} markup OR auto-linked glossary terms
-  const escaped = glossaryPatterns.map((p) =>
-    p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-  );
+  const escaped = glossaryPatterns.map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
   const parts = [`\\{([^}]+)\\}`];
   if (escaped.length > 0) {
     parts.push(`\\b(${escaped.join("|")})\\b`);
@@ -38,9 +38,9 @@ function tokenize(text: string): Fragment[] {
       fragments.push({ type: "explicit", value: match[1] });
     } else {
       // Auto-linked term
-      fragments.push({ type: "term", value: match[0]! });
+      fragments.push({ type: "term", value: match[0] });
     }
-    lastIndex = match.index + match[0]!.length;
+    lastIndex = match.index + match[0].length;
   }
 
   if (lastIndex < text.length) {
@@ -76,7 +76,10 @@ export function GlossaryText({ children }: GlossaryTextProps) {
 
         seen.add(entry.term);
         return (
-          <GlossaryTerm key={i} entry={entry}>
+          <GlossaryTerm
+            key={i}
+            entry={entry}
+          >
             {frag.value}
           </GlossaryTerm>
         );

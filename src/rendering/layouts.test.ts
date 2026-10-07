@@ -1,6 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { bipartiteLayout } from "./layouts";
+
 import type { GraphNode } from "@/types/graph";
+
+import { bipartiteLayout } from "./layouts";
 
 describe("bipartiteLayout", () => {
   const treeNodes: GraphNode[] = [
@@ -14,13 +16,7 @@ describe("bipartiteLayout", () => {
 
   it("puts the partition with lower avg y on top", () => {
     // {a, b} avg y = 130, {r, c, d, e} avg y = (40+230+230+230)/4 = 182.5
-    const result = bipartiteLayout(
-      treeNodes,
-      ["a", "b"],
-      ["r", "c", "d", "e"],
-      480,
-      300,
-    );
+    const result = bipartiteLayout(treeNodes, ["a", "b"], ["r", "c", "d", "e"], 480, 300);
 
     const nodeA = result.find((n) => n.id === "a")!;
     const nodeR = result.find((n) => n.id === "r")!;
@@ -29,13 +25,7 @@ describe("bipartiteLayout", () => {
   });
 
   it("preserves relative x-ordering within each row", () => {
-    const result = bipartiteLayout(
-      treeNodes,
-      ["a", "b"],
-      ["r", "c", "d", "e"],
-      480,
-      300,
-    );
+    const result = bipartiteLayout(treeNodes, ["a", "b"], ["r", "c", "d", "e"], 480, 300);
 
     // Bottom row: r, c, d, e — original x order: c(60), d(180), r(240), e(360)
     const bottom = result.filter((n) => ["r", "c", "d", "e"].includes(n.id));
@@ -44,13 +34,7 @@ describe("bipartiteLayout", () => {
   });
 
   it("spaces nodes evenly across the width", () => {
-    const result = bipartiteLayout(
-      treeNodes,
-      ["a", "b"],
-      ["r", "c", "d", "e"],
-      480,
-      300,
-    );
+    const result = bipartiteLayout(treeNodes, ["a", "b"], ["r", "c", "d", "e"], 480, 300);
 
     // Top row has 2 nodes (a, b) — should be at padding and width-padding
     const top = result.filter((n) => ["a", "b"].includes(n.id));
@@ -71,13 +55,7 @@ describe("bipartiteLayout", () => {
   });
 
   it("returns a MovedNode for every input node", () => {
-    const result = bipartiteLayout(
-      treeNodes,
-      ["a", "b"],
-      ["r", "c", "d", "e"],
-      480,
-      300,
-    );
+    const result = bipartiteLayout(treeNodes, ["a", "b"], ["r", "c", "d", "e"], 480, 300);
     expect(result).toHaveLength(6);
     const ids = result.map((n) => n.id).sort();
     expect(ids).toEqual(["a", "b", "c", "d", "e", "r"]);

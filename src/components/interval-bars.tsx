@@ -1,6 +1,7 @@
 "use client";
 
 import type { IntervalBarAnnotation } from "@/types/graph";
+
 import styles from "./interval-bars.module.css";
 
 type IntervalBarsProps = {
@@ -9,31 +10,20 @@ type IntervalBarsProps = {
   onSelect: (id: string) => void;
 };
 
-export function IntervalBars({
-  annotation,
-  selectedId,
-  onSelect,
-}: IntervalBarsProps) {
+export function IntervalBars({ annotation, selectedId, onSelect }: IntervalBarsProps) {
   const { intervals, highlightIds } = annotation;
-  const axisMin =
-    annotation.axisMin ?? Math.min(...intervals.map((i) => i.start));
-  const axisMax =
-    annotation.axisMax ?? Math.max(...intervals.map((i) => i.end));
+  const axisMin = annotation.axisMin ?? Math.min(...intervals.map((i) => i.start));
+  const axisMax = annotation.axisMax ?? Math.max(...intervals.map((i) => i.end));
   const range = axisMax - axisMin;
 
   // When an interval is selected, highlight it + all overlapping intervals
   const selectedInterval =
-    selectedId !== null
-      ? intervals.find((i) => i.id === selectedId)
-      : undefined;
+    selectedId !== null ? intervals.find((i) => i.id === selectedId) : undefined;
 
   let activeIds: string[];
   if (selectedInterval) {
     activeIds = intervals
-      .filter(
-        (i) =>
-          i.start <= selectedInterval.end && i.end >= selectedInterval.start,
-      )
+      .filter((i) => i.start <= selectedInterval.end && i.end >= selectedInterval.start)
       .map((i) => i.id);
   } else {
     activeIds = highlightIds ?? [];

@@ -1,5 +1,5 @@
-import type { InclusionProof } from "@/types/graph";
 import { bipartiteLayout } from "@/rendering/layouts";
+import type { InclusionProof } from "@/types/graph";
 
 const nodes = [
   { id: "r", x: 240, y: 40, label: "r" },
@@ -72,13 +72,7 @@ export const treeBipartiteProof: InclusionProof = {
           ["a", "d"],
           ["b", "e"],
         ],
-        movedNodes: bipartiteLayout(
-          [...nodes],
-          ["a", "b"],
-          ["r", "c", "d", "e"],
-          480,
-          300,
-        ),
+        movedNodes: bipartiteLayout([...nodes], ["a", "b"], ["r", "c", "d", "e"], 480, 300),
       },
     ],
   },

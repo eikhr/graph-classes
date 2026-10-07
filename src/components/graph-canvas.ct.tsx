@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/experimental-ct-react";
-import { GraphCanvas } from "./graph-canvas";
+
 import type { DrawCommand } from "@/rendering/draw-commands";
+
+import { GraphCanvas } from "./graph-canvas";
 
 const sampleCommands: DrawCommand[] = [
   { type: "circle", id: "a", x: 100, y: 100, radius: 16, highlighted: false },
@@ -11,7 +13,11 @@ const sampleCommands: DrawCommand[] = [
 
 test("renders a canvas element", async ({ mount, page }) => {
   await mount(
-    <GraphCanvas commands={sampleCommands} width={400} height={300} />,
+    <GraphCanvas
+      commands={sampleCommands}
+      width={400}
+      height={300}
+    />,
   );
   const canvas = page.locator("canvas");
   await expect(canvas).toBeVisible();
@@ -19,7 +25,11 @@ test("renders a canvas element", async ({ mount, page }) => {
 
 test("canvas has correct dimensions", async ({ mount, page }) => {
   await mount(
-    <GraphCanvas commands={sampleCommands} width={400} height={300} />,
+    <GraphCanvas
+      commands={sampleCommands}
+      width={400}
+      height={300}
+    />,
   );
   const canvas = page.locator("canvas");
   await expect(canvas).toHaveCSS("width", "400px");

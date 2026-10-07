@@ -3,8 +3,7 @@ import type { InclusionProof } from "@/types/graph";
 export const pathTreeProof: InclusionProof = {
   from: "path",
   to: "tree",
-  summary:
-    "Every path graph is a tree because it is connected and contains no cycles.",
+  summary: "Every path graph is a tree because it is connected and contains no cycles.",
   example: {
     graph: {
       nodes: [

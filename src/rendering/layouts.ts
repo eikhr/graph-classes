@@ -23,8 +23,7 @@ export function bipartiteLayout(
   const nodesA = nodes.filter((n) => setA.has(n.id));
   const nodesB = nodes.filter((n) => setB.has(n.id));
 
-  const avgY = (group: GraphNode[]) =>
-    group.reduce((sum, n) => sum + n.y, 0) / group.length;
+  const avgY = (group: GraphNode[]) => group.reduce((sum, n) => sum + n.y, 0) / group.length;
 
   // Put the group with lower average y on top
   const aAbove = avgY(nodesA) <= avgY(nodesB);

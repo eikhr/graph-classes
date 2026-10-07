@@ -1,13 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
-import { GraphExplainer } from "./graph-explainer";
+
 import type { GraphExample } from "@/types/graph";
+
+import { GraphExplainer } from "./graph-explainer";
 
 // Mock canvas — jsdom doesn't support canvas rendering
 vi.mock("./graph-canvas", () => ({
   GraphCanvas: ({ commands }: { commands: unknown[] }) => (
-    <div data-testid="graph-canvas" data-command-count={commands.length} />
+    <div
+      data-testid="graph-canvas"
+      data-command-count={commands.length}
+    />
   ),
 }));
 

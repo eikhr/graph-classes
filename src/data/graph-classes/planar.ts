@@ -1,5 +1,5 @@
-import type { GraphClass } from "@/types/graph";
 import { regularPolygon } from "@/data/graph-helpers";
+import type { GraphClass } from "@/types/graph";
 
 export const planarClass: GraphClass = {
   id: "planar",
@@ -11,8 +11,7 @@ export const planarClass: GraphClass = {
       "A graph with no $K_5$ minor and no $K_{3,3}$ minor (Kuratowski/Wagner)",
       "A graph with genus $0$",
     ],
-    forbiddenSubgraphs:
-      "No $K_5$ minor and no $K_{3,3}$ minor",
+    forbiddenSubgraphs: "No $K_5$ minor and no $K_{3,3}$ minor",
   },
   description:
     "A planar graph is a graph that can be drawn in the plane without any edges crossing. By Kuratowski's theorem, a graph is planar if and only if it does not contain a subdivision of K₅ or K₃,₃. Planar graphs satisfy Euler's formula: V - E + F = 2.",
@@ -32,7 +31,9 @@ export const planarClass: GraphClass = {
       graph: {
         nodes: [
           ...regularPolygon(5, {
-            cx: 240, cy: 150, r: 115,
+            cx: 240,
+            cy: 150,
+            r: 115,
             ids: ["1", "2", "3", "4", "5"],
             labels: ["1", "2", "3", "4", "5"],
           }),

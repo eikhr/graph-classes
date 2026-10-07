@@ -50,21 +50,20 @@ function buildEdgeSet(edges: [string, string][]): Set<string> {
   return new Set(edges.map(([s, t]) => `${s}->${t}`));
 }
 
-export function graphToDrawCommands(
-  graph: Graph,
-  highlight: HighlightState,
-): DrawCommand[] {
+export function graphToDrawCommands(graph: Graph, highlight: HighlightState): DrawCommand[] {
   const commands: DrawCommand[] = [];
   const nodeSet = new Set(highlight.highlightNodes ?? []);
   const edgeSet = buildEdgeSet(highlight.highlightEdges ?? []);
   const edgeSet2 = buildEdgeSet(highlight.highlightEdges2 ?? []);
-  const nodeColors = highlight.nodeColors;
+  const { nodeColors } = highlight;
 
   // Edges first (drawn behind nodes)
   for (const edge of graph.edges) {
     const source = graph.nodes.find((n) => n.id === edge.source);
     const target = graph.nodes.find((n) => n.id === edge.target);
-    if (!source || !target) continue;
+    if (!source || !target) {
+      continue;
+    }
 
     const key1 = `${edge.source}->${edge.target}`;
     const key2 = `${edge.target}->${edge.source}`;

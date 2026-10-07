@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
+
 import Home from "./page";
 
 vi.mock("@/components/graph-icon", () => ({

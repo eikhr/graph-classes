@@ -1,11 +1,14 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import { GraphCanvas } from "./graph-canvas";
-import { AnnotationPanel } from "./annotation-panel";
-import { MathText } from "./math-text";
+
 import { graphToDrawCommands } from "@/rendering/draw-commands";
 import type { GraphExample, Graph } from "@/types/graph";
+
+import { AnnotationPanel } from "./annotation-panel";
+import { GraphCanvas } from "./graph-canvas";
+import { MathText } from "./math-text";
+
 import styles from "./graph-explainer.module.css";
 
 type GraphExplainerProps = {
@@ -36,8 +39,12 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
 
     for (let i = 0; i <= stepIndex; i++) {
       const s = example.steps[i]!;
-      if (s.addedNodes) nodes.push(...s.addedNodes.map((n) => ({ ...n })));
-      if (s.addedEdges) edges.push(...s.addedEdges);
+      if (s.addedNodes) {
+        nodes.push(...s.addedNodes.map((n) => ({ ...n })));
+      }
+      if (s.addedEdges) {
+        edges.push(...s.addedEdges);
+      }
     }
 
     // Apply position overrides from the current step
@@ -56,8 +63,10 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
 
   // When a node is selected interactively, derive highlights from the graph
   const selectionHighlight = useMemo(() => {
-    if (selectedId === null) return null;
-    const edges = currentGraph.edges;
+    if (selectedId === null) {
+      return null;
+    }
+    const { edges } = currentGraph;
     const connectedEdges: [string, string][] = [];
     const neighborIds = new Set<string>([selectedId]);
     for (const edge of edges) {
@@ -76,10 +85,8 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
   const commands = useMemo(
     () =>
       graphToDrawCommands(currentGraph, {
-        highlightNodes:
-          selectionHighlight?.highlightNodes ?? step.highlightNodes,
-        highlightEdges:
-          selectionHighlight?.highlightEdges ?? step.highlightEdges,
+        highlightNodes: selectionHighlight?.highlightNodes ?? step.highlightNodes,
+        highlightEdges: selectionHighlight?.highlightEdges ?? step.highlightEdges,
         highlightEdges2: selectionHighlight ? undefined : step.highlightEdges2,
         nodeColors: step.nodeColors,
       }),
@@ -91,11 +98,7 @@ export function GraphExplainer({ example }: GraphExplainerProps) {
 
   return (
     <div className={styles["explainer"]}>
-      <div
-        className={
-          hasAnnotations ? styles["splitCanvasWrap"] : styles["canvasWrap"]
-        }
-      >
+      <div className={hasAnnotations ? styles["splitCanvasWrap"] : styles["canvasWrap"]}>
         <GraphCanvas
           commands={commands}
           width={canvasWidth}

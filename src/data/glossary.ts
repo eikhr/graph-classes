@@ -1,4 +1,5 @@
 import type { Graph } from "@/types/graph";
+
 import { regularPolygon } from "./graph-helpers";
 
 export type GlossaryEntry = {
@@ -72,8 +73,7 @@ export const glossary: GlossaryEntry[] = [
   {
     term: "subgraph",
     aliases: ["subgraphs"],
-    definition:
-      "A graph formed from a subset of the vertices and edges of another graph.",
+    definition: "A graph formed from a subset of the vertices and edges of another graph.",
   },
   {
     term: "induced subgraph",
@@ -110,8 +110,7 @@ export const glossary: GlossaryEntry[] = [
   },
   {
     term: "clique number",
-    definition:
-      "The size of the largest clique in a graph. Denoted ω(G).",
+    definition: "The size of the largest clique in a graph. Denoted ω(G).",
   },
   {
     term: "chord",
@@ -137,8 +136,7 @@ export const glossary: GlossaryEntry[] = [
   {
     term: "independent set",
     aliases: ["independent sets"],
-    definition:
-      "A set of vertices with no edges between any pair. Also called a stable set.",
+    definition: "A set of vertices with no edges between any pair. Also called a stable set.",
     illustration: {
       nodes: [
         { id: "a", x: 10, y: 50 },
@@ -150,15 +148,13 @@ export const glossary: GlossaryEntry[] = [
   },
   {
     term: "connected",
-    definition:
-      "A graph is connected if there is a path between every pair of vertices.",
+    definition: "A graph is connected if there is a path between every pair of vertices.",
     autoLink: false,
   },
   {
     term: "planar embedding",
     aliases: ["planar embeddings"],
-    definition:
-      "A drawing of a graph on a plane with no edge crossings.",
+    definition: "A drawing of a graph on a plane with no edge crossings.",
   },
   {
     term: "bipartite",
@@ -169,8 +165,7 @@ export const glossary: GlossaryEntry[] = [
     term: "tree",
     aliases: ["trees"],
     autoLink: false,
-    definition:
-      "A connected graph with no cycles. A tree on n vertices has exactly n−1 edges.",
+    definition: "A connected graph with no cycles. A tree on n vertices has exactly n−1 edges.",
     illustration: {
       nodes: [
         { id: "a", x: 50, y: 10 },
@@ -219,8 +214,7 @@ export const glossary: GlossaryEntry[] = [
   },
   {
     term: "diameter",
-    definition:
-      "The longest shortest path between any two vertices in a graph.",
+    definition: "The longest shortest path between any two vertices in a graph.",
     autoLink: false,
   },
   {
@@ -232,8 +226,7 @@ export const glossary: GlossaryEntry[] = [
   {
     term: "leaf",
     aliases: ["leaves"],
-    definition:
-      "A vertex of degree 1 — it has exactly one neighbor.",
+    definition: "A vertex of degree 1 — it has exactly one neighbor.",
     autoLink: false,
   },
   {
@@ -297,7 +290,9 @@ export function lookupGlossary(term: string): GlossaryEntry | undefined {
 // Excludes entries with autoLink: false (ambiguous common words like "connected", "path", etc.)
 const autoLinkMap = new Map<string, GlossaryEntry>();
 for (const entry of glossary) {
-  if (entry.autoLink === false) continue;
+  if (entry.autoLink === false) {
+    continue;
+  }
   autoLinkMap.set(entry.term.toLowerCase(), entry);
   if (entry.aliases) {
     for (const alias of entry.aliases) {
